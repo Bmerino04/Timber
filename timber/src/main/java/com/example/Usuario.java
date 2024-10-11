@@ -135,10 +135,9 @@ public class Usuario {
 
     /**
      * Método para registrar las preferencias del usuario.
-     * Este método aún no está implementado.
      */
     public void registrarPreferencias() {
-        throw new UnsupportedOperationException();
+        this.preferencias.modificarPreferencias();
     }
 
     /**
