@@ -1,4 +1,6 @@
 package src.main;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,9 +15,11 @@ public class Usuario {
 	private String fechaNacimiento;
 	private String email;
 	private String contrasennia;
+    private List<Integer> likesRecibidos;
 
     public Usuario() {
         this.idUsuario = contadorUsuarios++;
+        this.likesRecibidos = new ArrayList<>(); // Inicializamos la lista de likes
     }
 
 	public void validarInformacion() {
@@ -84,10 +88,21 @@ public class Usuario {
 		throw new UnsupportedOperationException();
 	}
 
-	public void anniadirLike() {
-		// TODO - implement Usuario.anniadirLike
-		throw new UnsupportedOperationException();
-	}
+	public void anniadirLike(int idUsuario) {
+        try {
+            if (likesRecibidos.contains(idUsuario)) {
+                throw new Exception("El usuario con ID: " + idUsuario + " ya ha dado like anteriormente.");
+            }
+            this.likesRecibidos.add(idUsuario);
+            System.out.println("Like recibido del usuario con ID: " + idUsuario);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<Integer> getLikesRecibidos() {
+        return this.likesRecibidos;
+    }
 
 	public void anniadirMatch() {
 		// TODO - implement Usuario.anniadirMatch
