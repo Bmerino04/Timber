@@ -35,6 +35,10 @@ public class Perfil {
         this.pronombres = pronombres;
     }
 
+    public Perfil() {
+
+    }
+
     // Getters
     public String getNombreUsuario() {
         return nombreUsuario;
