@@ -1,4 +1,4 @@
-package src.main;
+package timber.src.main.java.com.example;
 
 import java.util.ArrayList;
 import java.util.List;
