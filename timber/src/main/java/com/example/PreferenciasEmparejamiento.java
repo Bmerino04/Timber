@@ -99,8 +99,8 @@ public class PreferenciasEmparejamiento {
      * @param ciudadPreferida La nueva ciudad de preferencia.
      */
 	public void cambiarPreferencias(int nuevaEdadMinima, int nuevaEdadMaxima, List<String> nuevoGeneroPreferido, String nuevaCiudadPreferida){
-          this.edadMinima = null;
-          this.edadMaxima = null;
+          this.edadMinima = 0;
+          this.edadMaxima = 0;
           this.generoPreferido = null;
           this.ciudadPreferida = null;          
 	}
