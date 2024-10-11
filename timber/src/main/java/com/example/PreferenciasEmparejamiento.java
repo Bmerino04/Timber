@@ -1,6 +1,7 @@
 package com.example;
 
 import java.util.List;
+import java.util.ArrayList;
 /**
  * Esta clase maneja las preferencias de emparejamiento de un usuario.
  * Filtra candidatos basados en el rango de edad, ciudad de preferencia, y género preferido del usuario.
@@ -28,7 +29,7 @@ public class PreferenciasEmparejamiento {
 	private String ciudadPreferida;
 
 
-	public PreferenciasEmparejamiento(String [] generoPreferido){
+	public PreferenciasEmparejamiento(){
 		this.generoPreferido = new ArrayList<>();
 	}
 
@@ -40,7 +41,7 @@ public class PreferenciasEmparejamiento {
      *         false en caso contrario.
      */
 	public boolean ciudadCompatible(Usuario usuario){
-		return ciudadPreferida.equals(usuario.getCiudadResidencia()) ;
+		return ciudadPreferida.equals(usuario.getPerfil().getCiudadResidencia()) ;
 	}
 
 	/**
@@ -51,7 +52,7 @@ public class PreferenciasEmparejamiento {
      *         false en caso contrario.
      */
 	public boolean edadCompatible(Usuario usuario){
-		int edadUsuario = usuario.calcularEdad();
+		int edadUsuario = usuario.getPerfil().getEdad();
 		return (edadUsuario >= edadMinima && edadUsuario >= edadMaxima);
 	}
 	
@@ -63,7 +64,7 @@ public class PreferenciasEmparejamiento {
      *         false en caso contrario.
      */
 	public boolean generoCompatible(Usuario usuario){
-		String generoUsuario = usuario.getGenero();
+		String generoUsuario = usuario.getPerfil().getGenero();
 		for (String genero : generoPreferido){
 			if (genero.equals(generoUsuario)){
 				return true;
@@ -97,10 +98,8 @@ public class PreferenciasEmparejamiento {
      * @param generoPreferido Los nuevos géneros preferidos.
      * @param ciudadPreferida La nueva ciudad de preferencia.
      */
-	public void cambiarPreferencias(int nuevaEdadMinima, int nuevaEdadMaxima, String[] nuevoGeneroPreferido, String nuevaCiudadPreferida){
-          this.edadMinima = nuevaEdadMinima;
-          this.edadMaxima = nuevaEdadMaxima;
-          this.generoPreferido = nuevoGeneroPreferido;
-          this.ciudadPreferida = nuevaCiudadPreferida;          
+	public void cambiarPreferencias(int nuevaEdadMinima, int nuevaEdadMaxima, List<String> nuevoGeneroPreferido, String nuevaCiudadPreferida){
+          this.edadMinima = null;
+          this.edadMaxima = null;
 	}
 }
