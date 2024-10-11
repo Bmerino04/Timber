@@ -27,6 +27,15 @@ public class PreferenciasEmparejamiento {
 		return false;
 	}
 
+
+	public void buscarCompatibles(List<Usuario> listaUsuarios, Emparejamiento emparejamiento) {
+		for (Usuario usuario : listaUsuarios){
+			if (ciudadCompatible(usuario) && edadCompatible(usuario) && generoCompatible(usuario)){
+				emparejamiento.agregarCandidato(usuario);
+			}
+		}
+	}
+
 	public void cambiarPreferencias(){
 		
 	}
