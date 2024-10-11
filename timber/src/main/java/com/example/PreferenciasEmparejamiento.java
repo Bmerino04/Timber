@@ -101,5 +101,7 @@ public class PreferenciasEmparejamiento {
 	public void cambiarPreferencias(int nuevaEdadMinima, int nuevaEdadMaxima, List<String> nuevoGeneroPreferido, String nuevaCiudadPreferida){
           this.edadMinima = null;
           this.edadMaxima = null;
+          this.generoPreferido = null;
+          this.ciudadPreferida = null;          
 	}
 }
