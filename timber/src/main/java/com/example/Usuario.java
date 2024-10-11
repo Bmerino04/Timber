@@ -107,6 +107,7 @@ public class Usuario {
         System.out.println("Fecha de nacimiento: " + this.fechaNacimiento);
         System.out.println("Email: " + this.email);
         this.perfil = new Perfil();
+        perfil.registrarPerfil();
     }
 
     /**
