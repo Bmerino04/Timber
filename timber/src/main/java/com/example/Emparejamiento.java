@@ -28,7 +28,7 @@ public class Emparejamiento {
     }
 
     /**Muestra los perfiles públicos de los candidatos.*/
-    public void mostrarCadidatos() {
+    public void mostrarCandidatos() {
         for (Usuario candidato : candidatos) {
             candidato.getPerfil().mostrarPerfilPublico();
         }
