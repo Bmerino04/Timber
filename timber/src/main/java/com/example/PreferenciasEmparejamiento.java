@@ -33,6 +33,23 @@ public class PreferenciasEmparejamiento {
 		this.generoPreferido = new ArrayList<>();
 	}
 
+     	/**
+     * Cambia las preferencias de emparejamiento del usuario actual.
+     * 
+     * Este método permite modificar el rango de edad, los géneros preferidos, y la ciudad de preferencia.
+     * 
+     * @param edadMinima La nueva edad mínima preferida.
+     * @param edadMaxima La nueva edad máxima preferida.
+     * @param generoPreferido Los nuevos géneros preferidos.
+     * @param ciudadPreferida La nueva ciudad de preferencia.
+     */
+	public void cambiarPreferencias(){
+          this.edadMinima = 0;
+          this.edadMaxima = 0;
+          this.generoPreferido = null;
+          this.ciudadPreferida = null;          
+	}
+
 	/**
      * Verifica si la ciudad de un usuario es compatible con las preferencias del usuario actual.
      * 
@@ -88,20 +105,4 @@ public class PreferenciasEmparejamiento {
 		}
 	}
 
-	/**
-     * Cambia las preferencias de emparejamiento del usuario actual.
-     * 
-     * Este método permite modificar el rango de edad, los géneros preferidos, y la ciudad de preferencia.
-     * 
-     * @param edadMinima La nueva edad mínima preferida.
-     * @param edadMaxima La nueva edad máxima preferida.
-     * @param generoPreferido Los nuevos géneros preferidos.
-     * @param ciudadPreferida La nueva ciudad de preferencia.
-     */
-	public void cambiarPreferencias(){
-          this.edadMinima = 0;
-          this.edadMaxima = 0;
-          this.generoPreferido = null;
-          this.ciudadPreferida = null;          
-	}
 }
