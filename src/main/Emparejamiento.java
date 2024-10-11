@@ -14,7 +14,9 @@ public class Emparejamiento {
     }
 
     public void mostrarCadidatos() {
-
+        for (Usuario candidato : candidatos) {
+            candidato.getPerfil().mostrarPerfilPublico();
+        }
     }
 
     public void darLike(Usuario usuarioActual, Usuario candidato) {
