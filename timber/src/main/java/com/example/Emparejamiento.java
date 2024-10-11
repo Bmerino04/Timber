@@ -1,3 +1,4 @@
+package timber.src.main.java.com.example;
 import java.util.*;
 /**
  * La clase Emparejamiento maneja la lógica de emparejamiento entre usuarios
