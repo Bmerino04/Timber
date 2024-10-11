@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * @author Valentina Cifuentes
  * La clase Emparejamiento maneja la lógica de emparejamiento entre usuarios
  * en una aplicación de citas. Permite verificar matches, mostrar candidatos
  * y gestionar likes entre usuarios.
+ * @author Valentina Cifuentes
  */
 public class Emparejamiento {
     /** Colección de todos los usuarios compatibles para un posible match. */
