@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * Esta clase maneja las preferencias de emparejamiento de un usuario.
  * Filtra candidatos basados en el rango de edad, ciudad de preferencia, y género preferido del usuario.
  * 
- * Métodos como {@code buscarCompatibles} ayudan a encontrar candidatos que cumplan con los criterios definidos por el usuario.
+ * Métodos como [buscarCompatibles] ayudan a encontrar candidatos que cumplan con los criterios definidos por el usuario.
+ * @author Viviana Castro
  */
 public class PreferenciasEmparejamiento {
 
