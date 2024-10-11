@@ -4,8 +4,8 @@ public class Emparejamiento {
 
     Collection<Usuario> candidatos;
 
-    public Emparejamiento(Collection<Usuario> candidatos) {
-        this.candidatos = candidatos;
+    public Emparejamiento() {
+        this.candidatos = new ArrayList<>();
     }
 
     public boolean verificarMatch(Usuario usuario1, Usuario usuario2){
@@ -25,6 +25,10 @@ public class Emparejamiento {
             candidato.anniadirMatch(usuarioActual.getIdUsuario());
             usuarioActual.anniadirMatch(candidato.getIdUsuario());
         }
+    }
+
+    public void agregarCandidato(Usuario compatible) {
+        candidatos.add(candidato);
     }
 
 }
