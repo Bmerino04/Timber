@@ -35,7 +35,7 @@ public class Perfil {
         this.pronombres = pronombres;
     }
 
-    // Getters y Setters (no documentados)
+    // Getters
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -86,6 +86,5 @@ public class Perfil {
                 System.out.print("/" + pronombres[i]);
             }
         }
-        System.out.println();
     }
 }
