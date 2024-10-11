@@ -30,7 +30,6 @@ public class Usuario {
     public Usuario() {
         this.idUsuario = contadorUsuarios++;
         this.likesRecibidos = new ArrayList<>();
-        this.perfil = new Perfil();
         this.preferencias = new PreferenciasEmparejamiento(); 
         this.emparejamiento = new Emparejamiento();
     }
@@ -105,6 +104,7 @@ public class Usuario {
         System.out.println("ID de usuario: " + this.idUsuario);
         System.out.println("Fecha de nacimiento: " + this.fechaNacimiento);
         System.out.println("Email: " + this.email);
+        this.perfil = new Perfil();
     }
 
     /**
@@ -137,7 +137,7 @@ public class Usuario {
      * Método para registrar las preferencias del usuario.
      */
     public void registrarPreferencias() {
-        this.preferencias.modificarPreferencias();
+        this.preferencias.cambiarPreferencias();
     }
 
     /**
