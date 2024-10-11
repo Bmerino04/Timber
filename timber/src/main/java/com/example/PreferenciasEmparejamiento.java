@@ -1,3 +1,5 @@
+package com.example;
+
 import java.util.List;
 /**
  * Esta clase maneja las preferencias de emparejamiento de un usuario.
