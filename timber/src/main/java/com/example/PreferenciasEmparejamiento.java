@@ -1,7 +1,6 @@
 package com.example;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 /**
  * Esta clase maneja las preferencias de emparejamiento de un usuario.
  * Filtra candidatos basados en el rango de edad, ciudad de preferencia, y género preferido del usuario.
