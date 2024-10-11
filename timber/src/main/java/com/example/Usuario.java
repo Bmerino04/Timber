@@ -108,6 +108,7 @@ public class Usuario {
         System.out.println("Email: " + this.email);
         this.perfil = new Perfil();
         perfil.registrarPerfil();
+        perfil.mostrarPerfilPrivado();
     }
 
     /**
