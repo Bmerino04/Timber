@@ -1,4 +1,5 @@
 package src.main;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class Usuario {
 
-	//Perfil perfil;
+	private Perfil perfil;
 	//PreferenciasEmparejamiento preferencias;
 	//Emparejamiento emparejamiento;
     private static int contadorUsuarios = 1;
@@ -16,21 +17,36 @@ public class Usuario {
 	private String email;
 	private String contrasennia;
     private List<Integer> likesRecibidos;
+    private List<Integer> listaMatches;
 
     public Usuario() {
         this.idUsuario = contadorUsuarios++;
         this.likesRecibidos = new ArrayList<>(); // Inicializamos la lista de likes
     }
 
-	public void validarInformacion() {
-		// TODO - implement Usuario.validarInformacion
-		throw new UnsupportedOperationException();
-	}
+	private boolean validarInformacion(String email, String contrasennia) {
+        return this.email.equals(email) && this.contrasennia.equals(contrasennia);
+    }
 
 	public void iniciarSesion() {
-		// TODO - implement Usuario.iniciarSesion
-		throw new UnsupportedOperationException();
-	}
+        Scanner scanner = new Scanner(System.in);
+        
+        // Solicitar el correo electrónico
+        System.out.print("Ingrese su correo electrónico: ");
+        String inputEmail = scanner.nextLine();
+        
+        // Solicitar la contraseña
+        System.out.print("Ingrese su contraseña: ");
+        String inputContrasennia = scanner.nextLine();
+        
+        // Validar la información
+        if (validarInformacion(inputEmail, inputContrasennia)) {
+            System.out.println("Inicio de sesión exitoso.");
+            mostrarCandidatos();
+        } else {
+            System.out.println("Correo electrónico o contraseña incorrectos.");
+        }
+    }
 
 	public void registrarUsuario() {
         Scanner scanner = new Scanner(System.in);
@@ -104,9 +120,24 @@ public class Usuario {
         return this.likesRecibidos;
     }
 
-	public void anniadirMatch() {
-		// TODO - implement Usuario.anniadirMatch
-		throw new UnsupportedOperationException();
+	public void anniadirMatch(int idUsuario) {
+		try {
+            if (likesRecibidos.contains(idUsuario)) {
+                throw new Exception("El usuario con ID: " + idUsuario + " ya tiene un match registrado.");
+            }
+            this.likesRecibidos.add(idUsuario);
+            System.out.println("Match realizado con el usuario con ID: " + idUsuario);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 	}
+
+    public int getIdUsuario() {
+        return this.idUsuario;
+    }
+
+    public Perfil getPerfil() {
+        return this.perfil;
+    }
 
 }
