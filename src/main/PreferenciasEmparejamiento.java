@@ -4,4 +4,7 @@ public class PreferenciasEmparejamiento {
 	private String[] generoPreferido;
 	private String ciudadPreferida;
 
+	public boolean ciudadCompatible(Usuario usuario){
+		return ciudadPreferida.equals(usuario.getCiudadResidencia()) ;
+	}
 }
