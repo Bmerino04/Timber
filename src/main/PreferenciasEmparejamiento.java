@@ -27,4 +27,7 @@ public class PreferenciasEmparejamiento {
 		return false;
 	}
 
+	public void cambiarPreferencias(){
+		
+	}
 }
