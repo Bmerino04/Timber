@@ -1,4 +1,4 @@
-package com.example;
+package timber.src.main.java.com.example;
 
 public class Main {
     public static void main(String[] args) {
