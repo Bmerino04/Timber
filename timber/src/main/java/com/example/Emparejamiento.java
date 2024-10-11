@@ -1,5 +1,6 @@
-package timber.src.main.java.com.example;
-import java.util.*;
+package com.example;
+import java.util.ArrayList;
+import java.util.Collection;
 /**
  * La clase Emparejamiento maneja la lógica de emparejamiento entre usuarios
  * en una aplicación de citas. Permite verificar matches, mostrar candidatos
