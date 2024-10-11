@@ -25,16 +25,9 @@ Loading source file c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\
 Loading source file c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\PreferenciasEmparejamiento.java...
 Loading source file c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Usuario.java...
 Constructing Javadoc information...
-Creating destination directory: "c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\javadoc\"
 Building index for all the packages and classes...
 Standard Doclet version 22.0.1+8-16
 Building tree for all the packages and classes...
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Emparejamiento.java:6: warning: no main description
- * @author Valentina Cifuentes
-   ^
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Usuario.java:10: warning: no main description
- * @author Benjamin Merino
-   ^
 Generating c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\javadoc\com\example\Emparejamiento.html...
 c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Emparejamiento.java:15: warning: no comment
     public Emparejamiento() {
@@ -50,27 +43,24 @@ c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\exampl
     public static void main(String[] args) {
                        ^
 Generating c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\javadoc\com\example\Perfil.html...
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:38: warning: no comment
-    public Perfil() {
-           ^
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:59: warning: no comment
+c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:71: warning: no comment
     public String getBiografia() {
                   ^
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:55: warning: no comment
+c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:67: warning: no comment
     public String getCiudadResidencia() {
                   ^
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:47: warning: no comment
+c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:59: warning: no comment
     public int getEdad() {
                ^
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:51: warning: no comment
+c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:63: warning: no comment
     public String getGenero() {
                   ^
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:43: warning: no comment
+c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:55: warning: no comment
     public String getNombreUsuario() {
                   ^
-c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:63: warning: no comment
-    public String[] getPronombres() {
-                    ^
+c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\Perfil.java:75: warning: no comment
+    public List<String> getPronombres() {
+                        ^
 Generating c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\javadoc\com\example\PreferenciasEmparejamiento.html...
 c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java\com\example\PreferenciasEmparejamiento.java:80: error: @param name not found
      * @param usuarios La lista de usuarios a comparar.
@@ -105,6 +95,6 @@ Generating c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\java
 Generating c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\javadoc\index.html...
 Generating c:\Users\vivi_\OneDrive\Documentos\GitHub\Timber\timber\src\main\javadoc\help-doc.html...
 5 errors
-15 warnings
+12 warnings
 
 
