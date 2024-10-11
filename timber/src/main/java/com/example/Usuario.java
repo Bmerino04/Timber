@@ -23,6 +23,7 @@ public class Usuario {
     private String email;
     private String contrasennia;
     private List<Integer> likesRecibidos;
+    private List<Integer> matchesRecibidos;
 
     /**
      * Constructor de la clase Usuario.
@@ -177,6 +178,7 @@ public class Usuario {
             if (likesRecibidos.contains(idUsuario)) {
                 throw new Exception("El usuario con ID: " + idUsuario + " ya tiene un match registrado.");
             }
+            this.matchesRecibidos.add(idUsuario);
             System.out.println("Match realizado con el usuario con ID: " + idUsuario);
         } catch (Exception e) {
             System.out.println(e.getMessage());
