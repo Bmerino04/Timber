@@ -1,4 +1,7 @@
+import java.util.List;
+
 public class PreferenciasEmparejamiento {
+
 	private int edadMinima;
 	private int edadMaxima;
 	private String[] generoPreferido;
@@ -36,7 +39,11 @@ public class PreferenciasEmparejamiento {
 		}
 	}
 
-	public void cambiarPreferencias(){
+	public void cambiarPreferencias(int nuevaEdadMinima, int nuevaEdadMaxima, String[] nuevoGeneroPreferido, String nuevaCiudadPreferida){
+		this.edadMinima = nuevaEdadMinima;
+        this.edadMaxima = nuevaEdadMaxima;
+        this.generoPreferido = nuevoGeneroPreferido;
+        this.ciudadPreferida = nuevaCiudadPreferida;
 		
 	}
 }
