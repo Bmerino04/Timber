@@ -64,7 +64,7 @@ public class Usuario {
         // Validar la información
         if (validarInformacion(inputEmail, inputContrasennia)) {
             System.out.println("Inicio de sesión exitoso.");
-            mostrarCandidatos();
+            emparejamiento.mostrarCandidatos();
         } else {
             System.out.println("Correo electrónico o contraseña incorrectos.");
         }
