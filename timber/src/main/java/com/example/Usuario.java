@@ -177,7 +177,6 @@ public class Usuario {
             if (likesRecibidos.contains(idUsuario)) {
                 throw new Exception("El usuario con ID: " + idUsuario + " ya tiene un match registrado.");
             }
-            this.likesRecibidos.add(idUsuario);
             System.out.println("Match realizado con el usuario con ID: " + idUsuario);
         } catch (Exception e) {
             System.out.println(e.getMessage());
