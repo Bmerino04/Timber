@@ -28,7 +28,7 @@ public class Emparejamiento {
     }
 
     public void agregarCandidato(Usuario compatible) {
-        candidatos.add(candidato);
+        candidatos.add(compatible);
     }
 
 }
