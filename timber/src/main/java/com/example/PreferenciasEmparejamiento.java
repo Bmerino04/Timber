@@ -23,7 +23,7 @@ public class PreferenciasEmparejamiento {
 	/**
      * Los géneros preferidos para el emparejamiento.
      */
-	private String[] generoPreferido;
+	private List<String> generoPreferido;
 	/**
      * La ciudad preferida para el emparejamiento.
      */
@@ -31,7 +31,7 @@ public class PreferenciasEmparejamiento {
 
 
 	public PreferenciasEmparejamiento(String [] generoPreferido){
-		this.generoPreferido = generoPreferido;
+		this.generoPreferido = new ArrayList<>();
 	}
 
 	    /**
@@ -105,10 +105,9 @@ public class PreferenciasEmparejamiento {
      * @param ciudadPreferida La nueva ciudad de preferencia.
      */
 	public void cambiarPreferencias(int nuevaEdadMinima, int nuevaEdadMaxima, String[] nuevoGeneroPreferido, String nuevaCiudadPreferida){
-		this.edadMinima = nuevaEdadMinima;
-        this.edadMaxima = nuevaEdadMaxima;
-        this.generoPreferido = nuevoGeneroPreferido;
-        this.ciudadPreferida = nuevaCiudadPreferida;
-		
+          this.edadMinima = nuevaEdadMinima;
+          this.edadMaxima = nuevaEdadMaxima;
+          this.generoPreferido = nuevoGeneroPreferido;
+          this.ciudadPreferida = nuevaCiudadPreferida;          
 	}
 }
