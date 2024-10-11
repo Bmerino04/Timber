@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * @author Benjamin Merino
  * La clase Usuario representa a un usuario en el sistema, 
  * gestionando su información personal, registro, inicio de sesión,
  * likes recibidos y matches.
