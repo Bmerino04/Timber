@@ -1,10 +1,14 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 /**
- * La clase Perfil representa la información personal de un usuario en la
- * aplicación. Incluye atributos como el nombre de usuario, edad, género, ciudad
- * de residencia, biografía y pronombres preferidos. Proporciona métodos para
- * mostrar el perfil público y privado del usuario.
+ * @author Carlos Cienfuegos La clase Perfil representa la información personal
+ * de un usuario en la aplicación. Incluye atributos como el nombre de usuario,
+ * edad, género, ciudad de residencia, biografía y pronombres preferidos.
+ * Proporciona métodos para mostrar el perfil público y privado del usuario.
  */
 public class Perfil {
 
@@ -13,7 +17,7 @@ public class Perfil {
     private String genero;
     private String ciudadResidencia;
     private String biografia;
-    private String[] pronombres;
+    private List<String> pronombres;
 
     /**
      * Constructor para crear un perfil de usuario con todos los detalles.
@@ -26,16 +30,23 @@ public class Perfil {
      * @param pronombres Los pronombres preferidos del usuario (ej. "él",
      * "ella", "elle").
      */
-    public Perfil(String nombreUsuario, int edad, String genero, String ciudadResidencia, String biografia, String[] pronombres) {
+    public Perfil(String nombreUsuario, int edad, String genero, String ciudadResidencia, String biografia, List<String> pronombres) {
         this.nombreUsuario = nombreUsuario;
         this.edad = edad;
         this.genero = genero;
         this.ciudadResidencia = ciudadResidencia;
         this.biografia = biografia;
-        this.pronombres = pronombres;
+        this.pronombres = new ArrayList<>();
     }
 
+    /**
+     * Constructor por defecto que inicializa una nueva instancia de Perfil con
+     * una lista vacía de pronombres. Este constructor es útil para crear un
+     * perfil antes de registrar datos mediante el método
+     * {@link #registrarPerfil()}.
+     */
     public Perfil() {
+        this.pronombres = new ArrayList<>();
 
     }
 
@@ -60,8 +71,83 @@ public class Perfil {
         return biografia;
     }
 
-    public String[] getPronombres() {
+    public List<String> getPronombres() {
         return pronombres;
+    }
+
+    /**
+     * Permite registrar un perfil de usuario solicitando los datos mediante
+     * consola. Utiliza un objeto Scanner para recibir los datos del perfil
+     * (nombre de usuario, edad, género, ciudad de residencia, biografía y
+     * pronombres).
+     */
+    public void registrarPerfil() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el nombre de usuario: ");
+        this.nombreUsuario = scanner.nextLine();
+
+        // Validar y registrar edad
+        while (true) {
+            System.out.print("Ingrese la edad: ");
+            String input = scanner.nextLine();
+            if (esEdadValida(input)) {
+                this.edad = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Edad inválida. Por favor, ingrese un número entero positivo.");
+            }
+        }
+
+        System.out.print("Ingrese el género: ");
+        this.genero = scanner.nextLine();
+
+        System.out.print("Ingrese la ciudad de residencia: ");
+        this.ciudadResidencia = scanner.nextLine();
+
+        System.out.print("Ingrese la biografía: ");
+        this.biografia = scanner.nextLine();
+
+        // Validar y registrar pronombres
+        while (true) {
+            System.out.print("Ingrese los pronombres (separados por comas): ");
+            String input = scanner.nextLine();
+            if (esPronombresValidos(input)) {
+                this.pronombres = new ArrayList<>(List.of(input.split(",")));
+                break;
+            } else {
+                System.out.println("Pronombres inválidos. Asegúrese de separarlos con comas.");
+            }
+        }
+
+        System.out.println("Perfil registrado con éxito.");
+    }
+
+    /**
+     * Valida si la entrada de edad es un número entero positivo y menor a 120.
+     *
+     * @param input La entrada del usuario.
+     * @return true si la entrada es un número entero positivo menor a 120,
+     * false en caso contrario.
+     */
+    private boolean esEdadValida(String input) {
+        try {
+            int edad = Integer.parseInt(input);
+            return edad > 0 && edad < 120; // La edad debe ser positiva y menor a 120
+        } catch (NumberFormatException e) {
+            return false; // No es un número válido
+        }
+    }
+
+    /**
+     * Valida si los pronombres ingresados son válidos (no están vacíos).
+     *
+     * @param input La entrada del usuario.
+     * @return true si los pronombres son válidos, false en caso contrario.
+     */
+    private boolean esPronombresValidos(String input) {
+        // Comprobar que no esté vacío y que contenga al menos un pronombre
+        return !input.trim().isEmpty() && input.contains(",");
     }
 
     /**
@@ -83,11 +169,12 @@ public class Perfil {
         mostrarPerfilPublico();
         System.out.println("Biografía: " + biografia);
         System.out.print("Pronombres: ");
-        for (int i = 0; i < pronombres.length; i++) {
+
+        for (int i = 0; i < pronombres.size(); i++) {
             if (i == 0) {
-                System.out.print(pronombres[i]);
+                System.out.print(pronombres.getFirst());
             } else {
-                System.out.print("/" + pronombres[i]);
+                System.out.print("/" + pronombres.get(i));
             }
         }
     }
