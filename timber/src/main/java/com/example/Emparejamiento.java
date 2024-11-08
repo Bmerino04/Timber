@@ -46,9 +46,13 @@ public class Emparejamiento {
     public void darLike(Usuario usuarioActual, Usuario candidato) {
         candidato.anniadirLike(usuarioActual.getIdUsuario());
         if (verificarMatch(usuarioActual, candidato)){
-            candidato.anniadirMatch(usuarioActual.getIdUsuario());
-            usuarioActual.anniadirMatch(candidato.getIdUsuario());
+            anniadirMatches(usuarioActual, candidato);
         }
+    }
+    
+    public void anniadirMatches(Usuario usuarioActual,Usuario candidato){
+        candidato.anniadirMatch(usuarioActual.getIdUsuario());
+        usuarioActual.anniadirMatch(candidato.getIdUsuario());
     }
     
     /**
