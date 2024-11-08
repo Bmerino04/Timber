@@ -55,6 +55,21 @@ class UsuarioTest {
         List<Integer> likes = usuario.getLikesRecibidos();
         assertEquals(1, likes.size());
     }
+
+    @Test
+    void testAnniadirMatch() {
+        usuario.anniadirMatch(3);
+        List<Integer> matches = usuario.getMatchesRecibidos();
+        assertTrue(matches.contains(3));
+        assertEquals(1, matches.size());
+    }
+
+    @Test
+    void testAnniadirMatch_MatchDuplicado() {
+        usuario.anniadirMatch(3);
+        usuario.anniadirMatch(3);
+        List<Integer> matches = usuario.getMatchesRecibidos();
+        assertEquals(1, matches.size());
     }
 
 }
