@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * @author Carlos Cienfuegos La clase Perfil representa la información personal
+ * La clase Perfil representa la información personal
  * de un usuario en la aplicación. Incluye atributos como el nombre de usuario,
  * edad, género, ciudad de residencia, biografía y pronombres preferidos.
  * Proporciona métodos para mostrar el perfil público y privado del usuario.
+ * @author Carlos Cienfuegos 
  */
 public class Perfil {
 

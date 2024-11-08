@@ -1,4 +1,4 @@
-package timber.src.main.java.com.example;
+package com.example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
  * La clase Usuario representa a un usuario en el sistema, 
  * gestionando su información personal, registro, inicio de sesión,
  * likes recibidos y matches.
+ * 
+ * @author Benjamin Merino
  */
 public class Usuario {
 
@@ -22,6 +24,7 @@ public class Usuario {
     private String email;
     private String contrasennia;
     private List<Integer> likesRecibidos;
+    private List<Integer> matchesRecibidos;
 
     /**
      * Constructor de la clase Usuario.
@@ -30,7 +33,6 @@ public class Usuario {
     public Usuario() {
         this.idUsuario = contadorUsuarios++;
         this.likesRecibidos = new ArrayList<>();
-        this.perfil = new Perfil();
         this.preferencias = new PreferenciasEmparejamiento(); 
         this.emparejamiento = new Emparejamiento();
     }
@@ -105,6 +107,9 @@ public class Usuario {
         System.out.println("ID de usuario: " + this.idUsuario);
         System.out.println("Fecha de nacimiento: " + this.fechaNacimiento);
         System.out.println("Email: " + this.email);
+        this.perfil = new Perfil();
+        perfil.registrarPerfil();
+        perfil.mostrarPerfilPrivado();
     }
 
     /**
@@ -137,7 +142,7 @@ public class Usuario {
      * Método para registrar las preferencias del usuario.
      */
     public void registrarPreferencias() {
-        this.preferencias.modificarPreferencias();
+        this.preferencias.cambiarPreferencias();
     }
 
     /**
@@ -176,7 +181,7 @@ public class Usuario {
             if (likesRecibidos.contains(idUsuario)) {
                 throw new Exception("El usuario con ID: " + idUsuario + " ya tiene un match registrado.");
             }
-            this.likesRecibidos.add(idUsuario);
+            this.matchesRecibidos.add(idUsuario);
             System.out.println("Match realizado con el usuario con ID: " + idUsuario);
         } catch (Exception e) {
             System.out.println(e.getMessage());

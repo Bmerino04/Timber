@@ -1,9 +1,12 @@
-package timber.src.main.java.com.example;
-import java.util.*;
+package com.example;
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * La clase Emparejamiento maneja la lógica de emparejamiento entre usuarios
  * en una aplicación de citas. Permite verificar matches, mostrar candidatos
  * y gestionar likes entre usuarios.
+ * @author Valentina Cifuentes
  */
 public class Emparejamiento {
     /** Colección de todos los usuarios compatibles para un posible match. */
@@ -27,7 +30,7 @@ public class Emparejamiento {
     }
 
     /**Muestra los perfiles públicos de los candidatos.*/
-    public void mostrarCadidatos() {
+    public void mostrarCandidatos() {
         for (Usuario candidato : candidatos) {
             candidato.getPerfil().mostrarPerfilPublico();
         }
@@ -43,9 +46,20 @@ public class Emparejamiento {
     public void darLike(Usuario usuarioActual, Usuario candidato) {
         candidato.anniadirLike(usuarioActual.getIdUsuario());
         if (verificarMatch(usuarioActual, candidato)){
-            candidato.anniadirMatch(usuarioActual.getIdUsuario());
-            usuarioActual.anniadirMatch(candidato.getIdUsuario());
+            anniadirMatches(usuarioActual, candidato);
         }
+    }
+    
+    /**
+     * Se actualizan las listas de matches de cada usuario, agregandose el uno con el otros.
+     * Este método se utiliza cuando se confirma que ambos usuarios se han dado "like" mutuamente.
+     *
+     * @param usuarioActual El usuario que está dando el "like".
+     * @param candidato El usuario que recibe el "like".
+     */
+    public void anniadirMatches(Usuario usuarioActual,Usuario candidato){
+        candidato.anniadirMatch(usuarioActual.getIdUsuario());
+        usuarioActual.anniadirMatch(candidato.getIdUsuario());
     }
     
     /**
