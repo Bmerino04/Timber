@@ -34,10 +34,12 @@ class UsuarioTest {
     void testEsFechaValida() {
         assertTrue(usuario.esFechaValida("15/01/2020"));
 
-        assertFalse(usuario.esFechaValida("2022-13-32"));
+        assertFalse(usuario.esFechaValida("05-02-2004"));
+        assertFalse(usuario.esFechaValida("2022/12/03"));
         assertFalse(usuario.esFechaValida("50/02/2004"));
-        assertFalse(usuario.esFechaValida("5/25/2000"));
-        assertFalse(usuario.esFechaValida("01/02/299999999"));
+        assertFalse(usuario.esFechaValida("05/25/2000"));
+        assertFalse(usuario.esFechaValida("01/02/2200"));
+    }
     }
 
 }
