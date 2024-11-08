@@ -50,6 +50,13 @@ public class Emparejamiento {
         }
     }
     
+    /**
+     * Se actualizan las listas de matches de cada usuario, agregandose el uno con el otros.
+     * Este método se utiliza cuando se confirma que ambos usuarios se han dado "like" mutuamente.
+     *
+     * @param usuarioActual El usuario que está dando el "like".
+     * @param candidato El usuario que recibe el "like".
+     */
     public void anniadirMatches(Usuario usuarioActual,Usuario candidato){
         candidato.anniadirMatch(usuarioActual.getIdUsuario());
         usuarioActual.anniadirMatch(candidato.getIdUsuario());
