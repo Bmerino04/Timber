@@ -40,6 +40,21 @@ class UsuarioTest {
         assertFalse(usuario.esFechaValida("05/25/2000"));
         assertFalse(usuario.esFechaValida("01/02/2200"));
     }
+
+    @Test
+    void testAnniadirLike() {
+        usuario.anniadirLike(2);
+        List<Integer> likes = usuario.getLikesRecibidos();
+        assertTrue(likes.contains(2));
+        assertEquals(1, likes.size());
+    }
+    @Test
+    void testAnniadirLikeDuplicado() {
+        usuario.anniadirLike(2);
+        usuario.anniadirLike(2);
+        List<Integer> likes = usuario.getLikesRecibidos();
+        assertEquals(1, likes.size());
+    }
     }
 
 }
