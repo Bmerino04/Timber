@@ -33,7 +33,6 @@ public class Usuario {
      */
     public Usuario() {
         this.idUsuario = contadorUsuarios++;
-        this.likesRecibidos = new ArrayList<>();
         this.preferencias = new PreferenciasEmparejamiento(); 
         this.emparejamiento = new Emparejamiento();
         this.likesRecibidos = new ArrayList<>();
