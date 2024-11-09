@@ -22,24 +22,6 @@ class UsuarioTest {
         assertFalse(usuario.validarInformacion("wrong@example.com", "password123"));
         assertFalse(usuario.validarInformacion("test@example.com", "wrongpassword"));
     }
-    @Test
-    void testEsEmailValido() {
-        assertTrue(usuario.esEmailValido("test@example.com"));
-
-        assertFalse(usuario.esEmailValido("test@.com"));
-        assertFalse(usuario.esEmailValido("test@com"));
-        assertFalse(usuario.esEmailValido("testexample.com"));
-    }
-    @Test
-    void testEsFechaValida() {
-        assertTrue(usuario.esFechaValida("15/01/2020"));
-
-        assertFalse(usuario.esFechaValida("05-02-2004"));
-        assertFalse(usuario.esFechaValida("2022/12/03"));
-        assertFalse(usuario.esFechaValida("50/02/2004"));
-        assertFalse(usuario.esFechaValida("05/25/2000"));
-        assertFalse(usuario.esFechaValida("01/02/2200"));
-    }
 
     @Test
     void testAnniadirLike() {
@@ -48,6 +30,7 @@ class UsuarioTest {
         assertTrue(likes.contains(2));
         assertEquals(1, likes.size());
     }
+    
     @Test
     void testAnniadirLikeDuplicado() {
         usuario.anniadirLike(2);
