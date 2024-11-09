@@ -45,6 +45,7 @@ public class Usuario {
      * @return true si las credenciales son válidas, false en caso contrario
      */
     private boolean validarInformacion(String email, String contrasennia) {
+    public boolean validarInformacion(String email, String contrasennia) {
         return this.email.equals(email) && this.contrasennia.equals(contrasennia);
     }
 
@@ -119,6 +120,7 @@ public class Usuario {
      * @return true si la fecha es válida, false en caso contrario
      */
     private boolean esFechaValida(String fecha) {
+    public boolean esFechaValida(String fecha) {
         String patron = "^\\d{2}/\\d{2}/\\d{4}$";
         Pattern pattern = Pattern.compile(patron);
         Matcher matcher = pattern.matcher(fecha);
@@ -132,6 +134,7 @@ public class Usuario {
      * @return true si el correo es válido, false en caso contrario
      */
     private boolean esEmailValido(String email) {
+    public boolean esEmailValido(String email) {
         String patron = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern pattern = Pattern.compile(patron);
         Matcher matcher = pattern.matcher(email);
