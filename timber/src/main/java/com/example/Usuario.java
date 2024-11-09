@@ -174,6 +174,8 @@ public class Usuario {
         return this.likesRecibidos;
     }
 
+    public List<Integer> getMatchesRecibidos() { return this.matchesRecibidos; }
+
     /**
      * Añade un match con otro usuario.
      *
