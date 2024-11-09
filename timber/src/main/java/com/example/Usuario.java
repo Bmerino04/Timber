@@ -79,31 +79,9 @@ public class Usuario {
      * Valida la fecha de nacimiento y el correo electrónico antes de almacenar la información.
      */
     public void registrarUsuario() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("Ingrese su fecha de nacimiento (dd/mm/aaaa): ");
-            String input = scanner.nextLine();
-            if (esFechaValida(input)) {
-                this.fechaNacimiento = input;
-                break;
-            } else {
-                System.out.println("Fecha de nacimiento inválida. Por favor, use el formato dd/mm/aaaa.");
-            }
-        }
-
-        while (true) {
-            System.out.print("Ingrese su email: ");
-            String input = scanner.nextLine();
-            if (esEmailValido(input)) {
-                this.email = input;
-                break;
-            } else {
-                System.out.println("Email inválido. Por favor, ingrese un email válido.");
-            }
-        }
-
-        System.out.print("Ingrese su contraseña: ");
-        this.contrasennia = scanner.nextLine();
+        this.fechaNacimiento = FormularioUsuario.solicitarFechaNacimiento();
+        this.email = FormularioUsuario.solicitarEmail();
+        this.contrasennia = FormularioUsuario.solicitarContrasennia();
 
         System.out.println("Registro exitoso.");
         System.out.println("ID de usuario: " + this.idUsuario);
@@ -112,54 +90,6 @@ public class Usuario {
         this.perfil = new Perfil();
         perfil.registrarPerfil();
         perfil.mostrarPerfilPrivado();
-    }
-
-    /**
-     * Valida el formato de la fecha de nacimiento.
-     *
-     * @param fecha la fecha en formato dd/mm/aaaa
-     * @return true si la fecha es válida, false en caso contrario
-     */
-    public boolean esFechaValida(String fecha) {
-        String patron = "^\\d{2}/\\d{2}/\\d{4}$";
-        Pattern pattern = Pattern.compile(patron);
-        Matcher matcher = pattern.matcher(fecha);
-
-        if (!matcher.matches()) {
-            return false;
-        }
-
-        String[] partes = fecha.split("/");
-        int dia = Integer.parseInt(partes[0]);
-        int mes = Integer.parseInt(partes[1]);
-        int anio = Integer.parseInt(partes[2]);
-
-        if (mes < 1 || mes > 12) {
-            return false;
-        }
-        Calendar calendario = Calendar.getInstance();
-        calendario.set(anio, mes - 1, 1);
-        int diasEnMes = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        if (dia < 1 || dia > diasEnMes) {
-            return false;
-        }
-
-        int anioActual = Calendar.getInstance().get(Calendar.YEAR);
-        return anio <= anioActual;
-    }
-
-    /**
-     * Valida el formato del correo electrónico.
-     *
-     * @param email el correo electrónico a validar
-     * @return true si el correo es válido, false en caso contrario
-     */
-    public boolean esEmailValido(String email) {
-        String patron = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        Pattern pattern = Pattern.compile(patron);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     /**
