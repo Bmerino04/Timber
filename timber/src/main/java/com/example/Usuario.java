@@ -184,6 +184,7 @@ public class Usuario {
     public void anniadirMatch(int idUsuario) {
         try {
             if (likesRecibidos.contains(idUsuario)) {
+            if (getMatchesRecibidos().contains(idUsuario)) {
                 throw new Exception("El usuario con ID: " + idUsuario + " ya tiene un match registrado.");
             }
             this.matchesRecibidos.add(idUsuario);
