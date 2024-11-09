@@ -44,7 +44,6 @@ public class Usuario {
      * @param contrasennia la contraseña ingresada por el usuario
      * @return true si las credenciales son válidas, false en caso contrario
      */
-    private boolean validarInformacion(String email, String contrasennia) {
     public boolean validarInformacion(String email, String contrasennia) {
         return this.email.equals(email) && this.contrasennia.equals(contrasennia);
     }
@@ -119,7 +118,6 @@ public class Usuario {
      * @param fecha la fecha en formato dd/mm/aaaa
      * @return true si la fecha es válida, false en caso contrario
      */
-    private boolean esFechaValida(String fecha) {
     public boolean esFechaValida(String fecha) {
         String patron = "^\\d{2}/\\d{2}/\\d{4}$";
         Pattern pattern = Pattern.compile(patron);
@@ -133,7 +131,6 @@ public class Usuario {
      * @param email el correo electrónico a validar
      * @return true si el correo es válido, false en caso contrario
      */
-    private boolean esEmailValido(String email) {
     public boolean esEmailValido(String email) {
         String patron = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern pattern = Pattern.compile(patron);
@@ -183,7 +180,6 @@ public class Usuario {
      */
     public void anniadirMatch(int idUsuario) {
         try {
-            if (likesRecibidos.contains(idUsuario)) {
             if (getMatchesRecibidos().contains(idUsuario)) {
                 throw new Exception("El usuario con ID: " + idUsuario + " ya tiene un match registrado.");
             }
