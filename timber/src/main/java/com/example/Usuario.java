@@ -1,6 +1,7 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -32,9 +33,10 @@ public class Usuario {
      */
     public Usuario() {
         this.idUsuario = contadorUsuarios++;
-        this.likesRecibidos = new ArrayList<>();
         this.preferencias = new PreferenciasEmparejamiento(); 
         this.emparejamiento = new Emparejamiento();
+        this.likesRecibidos = new ArrayList<>();
+        this.matchesRecibidos = new ArrayList<>();
     }
 
     /**
@@ -44,7 +46,7 @@ public class Usuario {
      * @param contrasennia la contraseña ingresada por el usuario
      * @return true si las credenciales son válidas, false en caso contrario
      */
-    private boolean validarInformacion(String email, String contrasennia) {
+    public boolean validarInformacion(String email, String contrasennia) {
         return this.email.equals(email) && this.contrasennia.equals(contrasennia);
     }
 
@@ -118,11 +120,33 @@ public class Usuario {
      * @param fecha la fecha en formato dd/mm/aaaa
      * @return true si la fecha es válida, false en caso contrario
      */
-    private boolean esFechaValida(String fecha) {
+    public boolean esFechaValida(String fecha) {
         String patron = "^\\d{2}/\\d{2}/\\d{4}$";
         Pattern pattern = Pattern.compile(patron);
         Matcher matcher = pattern.matcher(fecha);
-        return matcher.matches();
+
+        if (!matcher.matches()) {
+            return false;
+        }
+
+        String[] partes = fecha.split("/");
+        int dia = Integer.parseInt(partes[0]);
+        int mes = Integer.parseInt(partes[1]);
+        int anio = Integer.parseInt(partes[2]);
+
+        if (mes < 1 || mes > 12) {
+            return false;
+        }
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(anio, mes - 1, 1);
+        int diasEnMes = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        if (dia < 1 || dia > diasEnMes) {
+            return false;
+        }
+
+        int anioActual = Calendar.getInstance().get(Calendar.YEAR);
+        return anio <= anioActual;
     }
 
     /**
@@ -131,7 +155,7 @@ public class Usuario {
      * @param email el correo electrónico a validar
      * @return true si el correo es válido, false en caso contrario
      */
-    private boolean esEmailValido(String email) {
+    public boolean esEmailValido(String email) {
         String patron = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern pattern = Pattern.compile(patron);
         Matcher matcher = pattern.matcher(email);
@@ -171,6 +195,8 @@ public class Usuario {
         return this.likesRecibidos;
     }
 
+    public List<Integer> getMatchesRecibidos() { return this.matchesRecibidos; }
+
     /**
      * Añade un match con otro usuario.
      *
@@ -178,7 +204,7 @@ public class Usuario {
      */
     public void anniadirMatch(int idUsuario) {
         try {
-            if (likesRecibidos.contains(idUsuario)) {
+            if (getMatchesRecibidos().contains(idUsuario)) {
                 throw new Exception("El usuario con ID: " + idUsuario + " ya tiene un match registrado.");
             }
             this.matchesRecibidos.add(idUsuario);
@@ -204,5 +230,12 @@ public class Usuario {
      */
     public Perfil getPerfil() {
         return this.perfil;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setContrasennia(String contrasennia) {
+        this.contrasennia = contrasennia;
     }
 }
