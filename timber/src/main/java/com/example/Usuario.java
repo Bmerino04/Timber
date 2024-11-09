@@ -35,6 +35,8 @@ public class Usuario {
         this.likesRecibidos = new ArrayList<>();
         this.preferencias = new PreferenciasEmparejamiento(); 
         this.emparejamiento = new Emparejamiento();
+        this.likesRecibidos = new ArrayList<>();
+        this.matchesRecibidos = new ArrayList<>();
     }
 
     /**
