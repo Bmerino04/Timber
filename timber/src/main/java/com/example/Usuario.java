@@ -1,6 +1,7 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -32,9 +33,10 @@ public class Usuario {
      */
     public Usuario() {
         this.idUsuario = contadorUsuarios++;
-        this.likesRecibidos = new ArrayList<>();
         this.preferencias = new PreferenciasEmparejamiento(); 
         this.emparejamiento = new Emparejamiento();
+        this.likesRecibidos = new ArrayList<>();
+        this.matchesRecibidos = new ArrayList<>();
     }
 
     /**
@@ -44,7 +46,7 @@ public class Usuario {
      * @param contrasennia la contraseña ingresada por el usuario
      * @return true si las credenciales son válidas, false en caso contrario
      */
-    private boolean validarInformacion(String email, String contrasennia) {
+    public boolean validarInformacion(String email, String contrasennia) {
         return this.email.equals(email) && this.contrasennia.equals(contrasennia);
     }
 
@@ -77,31 +79,9 @@ public class Usuario {
      * Valida la fecha de nacimiento y el correo electrónico antes de almacenar la información.
      */
     public void registrarUsuario() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("Ingrese su fecha de nacimiento (dd/mm/aaaa): ");
-            String input = scanner.nextLine();
-            if (esFechaValida(input)) {
-                this.fechaNacimiento = input;
-                break;
-            } else {
-                System.out.println("Fecha de nacimiento inválida. Por favor, use el formato dd/mm/aaaa.");
-            }
-        }
-
-        while (true) {
-            System.out.print("Ingrese su email: ");
-            String input = scanner.nextLine();
-            if (esEmailValido(input)) {
-                this.email = input;
-                break;
-            } else {
-                System.out.println("Email inválido. Por favor, ingrese un email válido.");
-            }
-        }
-
-        System.out.print("Ingrese su contraseña: ");
-        this.contrasennia = scanner.nextLine();
+        this.fechaNacimiento = FormularioUsuario.solicitarFechaNacimiento();
+        this.email = FormularioUsuario.solicitarEmail();
+        this.contrasennia = FormularioUsuario.solicitarContrasennia();
 
         System.out.println("Registro exitoso.");
         System.out.println("ID de usuario: " + this.idUsuario);
@@ -110,32 +90,6 @@ public class Usuario {
         this.perfil = new Perfil();
         perfil.registrarPerfil();
         perfil.mostrarPerfilPrivado();
-    }
-
-    /**
-     * Valida el formato de la fecha de nacimiento.
-     *
-     * @param fecha la fecha en formato dd/mm/aaaa
-     * @return true si la fecha es válida, false en caso contrario
-     */
-    private boolean esFechaValida(String fecha) {
-        String patron = "^\\d{2}/\\d{2}/\\d{4}$";
-        Pattern pattern = Pattern.compile(patron);
-        Matcher matcher = pattern.matcher(fecha);
-        return matcher.matches();
-    }
-
-    /**
-     * Valida el formato del correo electrónico.
-     *
-     * @param email el correo electrónico a validar
-     * @return true si el correo es válido, false en caso contrario
-     */
-    private boolean esEmailValido(String email) {
-        String patron = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        Pattern pattern = Pattern.compile(patron);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     /**
@@ -171,6 +125,8 @@ public class Usuario {
         return this.likesRecibidos;
     }
 
+    public List<Integer> getMatchesRecibidos() { return this.matchesRecibidos; }
+
     /**
      * Añade un match con otro usuario.
      *
@@ -178,7 +134,7 @@ public class Usuario {
      */
     public void anniadirMatch(int idUsuario) {
         try {
-            if (likesRecibidos.contains(idUsuario)) {
+            if (getMatchesRecibidos().contains(idUsuario)) {
                 throw new Exception("El usuario con ID: " + idUsuario + " ya tiene un match registrado.");
             }
             this.matchesRecibidos.add(idUsuario);
@@ -204,5 +160,12 @@ public class Usuario {
      */
     public Perfil getPerfil() {
         return this.perfil;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setContrasennia(String contrasennia) {
+        this.contrasennia = contrasennia;
     }
 }
