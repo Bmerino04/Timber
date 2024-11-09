@@ -211,4 +211,11 @@ public class Usuario {
     public Perfil getPerfil() {
         return this.perfil;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setContrasennia(String contrasennia) {
+        this.contrasennia = contrasennia;
+    }
 }
