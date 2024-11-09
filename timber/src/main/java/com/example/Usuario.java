@@ -1,5 +1,7 @@
 package com.example;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -47,7 +49,7 @@ public class Usuario {
      * @return true si las credenciales son válidas, false en caso contrario
      */
     public boolean validarInformacion(String email, String contrasennia) {
-        return this.email.equals(email) && this.contrasennia.equals(contrasennia);
+        return this.email.equals(email) && BCrypt.checkpw(contrasennia, this.contrasennia);
     }
 
     /**
@@ -166,6 +168,10 @@ public class Usuario {
         this.email = email;
     }
     public void setContrasennia(String contrasennia) {
-        this.contrasennia = contrasennia;
+        this.contrasennia = encriptarContrasennia(contrasennia);
+    }
+
+    private String encriptarContrasennia(String contrasennia) {
+        return BCrypt.hashpw(contrasennia, BCrypt.gensalt());
     }
 }
