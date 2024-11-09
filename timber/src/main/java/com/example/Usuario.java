@@ -1,6 +1,7 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -124,7 +125,29 @@ public class Usuario {
         String patron = "^\\d{2}/\\d{2}/\\d{4}$";
         Pattern pattern = Pattern.compile(patron);
         Matcher matcher = pattern.matcher(fecha);
-        return matcher.matches();
+
+        if (!matcher.matches()) {
+            return false;
+        }
+
+        String[] partes = fecha.split("/");
+        int dia = Integer.parseInt(partes[0]);
+        int mes = Integer.parseInt(partes[1]);
+        int anio = Integer.parseInt(partes[2]);
+
+        if (mes < 1 || mes > 12) {
+            return false;
+        }
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(anio, mes - 1, 1);
+        int diasEnMes = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        if (dia < 1 || dia > diasEnMes) {
+            return false;
+        }
+
+        int anioActual = Calendar.getInstance().get(Calendar.YEAR);
+        return anio <= anioActual;
     }
 
     /**
