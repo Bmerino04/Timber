@@ -93,7 +93,7 @@ public class Usuario {
     }
 
     /**
-     * Método para registrar las preferencias del usuario.
+     * Registra las preferencias de emparejamiento del usuario.
      */
     public void registrarPreferencias() {
         this.preferencias.cambiarPreferencias();
@@ -125,7 +125,14 @@ public class Usuario {
         return this.likesRecibidos;
     }
 
-    public List<Integer> getMatchesRecibidos() { return this.matchesRecibidos; }
+    /**
+     * Obtiene la lista de matches recibidos.
+     *
+     * @return una lista de enteros que representan los IDs de usuarios con los que se ha hecho match
+     */
+    public List<Integer> getMatchesRecibidos() {
+        return this.matchesRecibidos;
+    }
 
     /**
      * Añade un match con otro usuario.
@@ -162,9 +169,20 @@ public class Usuario {
         return this.perfil;
     }
 
+    /**
+     * Establece el correo electrónico del usuario.
+     *
+     * @param email el correo electrónico a establecer
+     */
     public void setEmail(String email) {
         this.email = email;
     }
+
+    /**
+     * Establece la contraseña del usuario.
+     *
+     * @param contrasennia la contraseña a establecer
+     */
     public void setContrasennia(String contrasennia) {
         this.contrasennia = contrasennia;
     }
