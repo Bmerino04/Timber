@@ -84,44 +84,62 @@ public class Perfil {
      */
     public void registrarPerfil() {
         Scanner scanner = new Scanner(System.in);
+        
+        this.nombreUsuario = solicitarEntrada("Ingrese el nombre de usuario: ", scanner);
+        this.edad = solicitarEdad(scanner);
+        this.genero = solicitarEntrada("Ingrese el género: ", scanner);
+        this.ciudadResidencia = solicitarEntrada("Ingrese la ciudad de residencia: ", scanner);
+        this.biografia = solicitarEntrada("Ingrese la biografía: ", scanner);
+        this.pronombres = solicitarPronombres(scanner);
+        System.out.println("Perfil registrado con éxito.");
 
-        System.out.print("Ingrese el nombre de usuario: ");
-        this.nombreUsuario = scanner.nextLine();
+    }
 
-        // Validar y registrar edad
+   /**
+     * Solicita una entrada de texto desde la consola.
+     *
+     * @param mensaje El mensaje que se muestra al usuario para solicitar la entrada.
+     * @param scanner El objeto Scanner que se utiliza para capturar la entrada.
+     * @return La entrada de texto proporcionada por el usuario.
+     */
+    private String solicitarEntrada(String mensaje, Scanner scanner) {
+        System.out.print(mensaje);
+        return scanner.nextLine();
+    }
+
+    /**
+     * Solicita la edad del usuario y valida que sea un número entero positivo menor a 120.
+     *
+     * @param scanner El objeto Scanner que se utiliza para capturar la entrada.
+     * @return La edad válida ingresada por el usuario.
+     */
+    private int solicitarEdad(Scanner scanner) {
         while (true) {
-            System.out.print("Ingrese la edad: ");
-            String input = scanner.nextLine();
+            String input = solicitarEntrada("Ingrese la edad: ", scanner);
             if (esEdadValida(input)) {
-                this.edad = Integer.parseInt(input);
-                break;
+                return Integer.parseInt(input);
             } else {
                 System.out.println("Edad inválida. Por favor, ingrese un número entero positivo.");
             }
         }
+    }
 
-        System.out.print("Ingrese el género: ");
-        this.genero = scanner.nextLine();
-
-        System.out.print("Ingrese la ciudad de residencia: ");
-        this.ciudadResidencia = scanner.nextLine();
-
-        System.out.print("Ingrese la biografía: ");
-        this.biografia = scanner.nextLine();
-
-        // Validar y registrar pronombres
+     /**
+     * Solicita los pronombres del usuario como una lista de cadenas separadas por comas.
+     * Valida que los pronombres no estén vacíos y contengan al menos un pronombre.
+     *
+     * @param scanner El objeto Scanner que se utiliza para capturar la entrada.
+     * @return Una lista de pronombres válidos ingresados por el usuario.
+     */
+    private List<String> solicitarPronombres(Scanner scanner) {
         while (true) {
-            System.out.print("Ingrese los pronombres (separados por comas): ");
-            String input = scanner.nextLine();
+            String input = solicitarEntrada("Ingrese los pronombres (separados por comas): ", scanner);
             if (esPronombresValidos(input)) {
-                this.pronombres = new ArrayList<>(List.of(input.split(",")));
-                break;
+                return new ArrayList<>(List.of(input.split(",")));
             } else {
                 System.out.println("Pronombres inválidos. Asegúrese de separarlos con comas.");
             }
         }
-
-        System.out.println("Perfil registrado con éxito.");
     }
 
     /**
@@ -133,8 +151,8 @@ public class Perfil {
      */
     private boolean esEdadValida(String input) {
         try {
-            int edad = Integer.parseInt(input);
-            return edad > 0 && edad < 120; // La edad debe ser positiva y menor a 120
+            int edadVariable = Integer.parseInt(input);
+            return edadVariable > 0 && edadVariable < 120; // La edad debe ser positiva y menor a 120
         } catch (NumberFormatException e) {
             return false; // No es un número válido
         }
