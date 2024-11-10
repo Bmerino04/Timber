@@ -94,11 +94,25 @@ public class Perfil {
         System.out.println("Perfil registrado con éxito.");
 
     }
+
+   /**
+     * Solicita una entrada de texto desde la consola.
+     *
+     * @param mensaje El mensaje que se muestra al usuario para solicitar la entrada.
+     * @param scanner El objeto Scanner que se utiliza para capturar la entrada.
+     * @return La entrada de texto proporcionada por el usuario.
+     */
     private String solicitarEntrada(String mensaje, Scanner scanner) {
         System.out.print(mensaje);
         return scanner.nextLine();
     }
 
+    /**
+     * Solicita la edad del usuario y valida que sea un número entero positivo menor a 120.
+     *
+     * @param scanner El objeto Scanner que se utiliza para capturar la entrada.
+     * @return La edad válida ingresada por el usuario.
+     */
     private int solicitarEdad(Scanner scanner) {
         while (true) {
             String input = solicitarEntrada("Ingrese la edad: ", scanner);
@@ -110,6 +124,13 @@ public class Perfil {
         }
     }
 
+     /**
+     * Solicita los pronombres del usuario como una lista de cadenas separadas por comas.
+     * Valida que los pronombres no estén vacíos y contengan al menos un pronombre.
+     *
+     * @param scanner El objeto Scanner que se utiliza para capturar la entrada.
+     * @return Una lista de pronombres válidos ingresados por el usuario.
+     */
     private List<String> solicitarPronombres(Scanner scanner) {
         while (true) {
             String input = solicitarEntrada("Ingrese los pronombres (separados por comas): ", scanner);
