@@ -9,7 +9,7 @@ import java.util.Collection;
 public class EmparejamientoService {
 
     /** Colección de todos los usuarios compatibles para un posible match. */
-    private final Collection<Usuario> candidatos;
+    private final Collection<UsuarioService> candidatos;
 
     public EmparejamientoService() {
         this.candidatos = new ArrayList<>();
@@ -23,7 +23,7 @@ public class EmparejamientoService {
      * @param usuario2 El segundo usuario a comparar.
      * @return true si hay un match, false en caso contrario.
      */
-    public boolean verificarMatch(Usuario usuario1, Usuario usuario2) {
+    public boolean verificarMatch(UsuarioService usuario1, UsuarioService usuario2) {
         return usuario1.getLikesRecibidos().contains(usuario2.getIdUsuario()) &&
                 usuario2.getLikesRecibidos().contains(usuario1.getIdUsuario());
     }
@@ -32,7 +32,7 @@ public class EmparejamientoService {
      * Muestra los perfiles públicos de los candidatos.
      */
     public void mostrarCandidatos() {
-        for (Usuario candidato : candidatos) {
+        for (UsuarioService candidato : candidatos) {
             candidato.getPerfil().mostrarPerfilPublico();
         }
     }
@@ -44,7 +44,7 @@ public class EmparejamientoService {
      * @param usuarioActual El usuario que está dando el "like".
      * @param candidato El usuario que recibe el "like".
      */
-    public void darLike(Usuario usuarioActual, Usuario candidato) {
+    public void darLike(UsuarioService usuarioActual, UsuarioService candidato) {
         candidato.anniadirLike(usuarioActual.getIdUsuario());
         if (verificarMatch(usuarioActual, candidato)) {
             anniadirMatches(usuarioActual, candidato);
@@ -57,7 +57,7 @@ public class EmparejamientoService {
      * @param usuarioActual El usuario que está dando el "like".
      * @param candidato El usuario que recibe el "like".
      */
-    public void anniadirMatches(Usuario usuarioActual, Usuario candidato) {
+    public void anniadirMatches(UsuarioService usuarioActual, UsuarioService candidato) {
         candidato.anniadirMatch(usuarioActual.getIdUsuario());
         usuarioActual.anniadirMatch(candidato.getIdUsuario());
     }
@@ -67,7 +67,7 @@ public class EmparejamientoService {
      *
      * @param compatible El usuario que se añadirá como candidato.
      */
-    public void agregarCandidato(Usuario compatible) {
+    public void agregarCandidato(UsuarioService compatible) {
         candidatos.add(compatible);
     }
 }
