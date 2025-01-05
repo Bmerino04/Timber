@@ -83,8 +83,7 @@ public class Perfil {
      * pronombres).
      */
     public void registrarPerfil() {
-        Scanner scanner = new Scanner(System.in);
-        
+        try( Scanner scanner = new Scanner(System.in)){
         this.nombreUsuario = solicitarEntrada("Ingrese el nombre de usuario: ", scanner);
         this.edad = solicitarEdad(scanner);
         this.genero = solicitarEntrada("Ingrese el género: ", scanner);
@@ -92,7 +91,7 @@ public class Perfil {
         this.biografia = solicitarEntrada("Ingrese la biografía: ", scanner);
         this.pronombres = solicitarPronombres(scanner);
         System.out.println("Perfil registrado con éxito.");
-
+    }
     }
 
    /**
@@ -187,14 +186,6 @@ public class Perfil {
     public void mostrarPerfilPrivado() {
         mostrarPerfilPublico();
         System.out.println("Biografía: " + biografia);
-        System.out.print("Pronombres: ");
-
-        for (int i = 0; i < pronombres.size(); i++) {
-            if (i == 0) {
-                System.out.print(pronombres.getFirst());
-            } else {
-                System.out.print("/" + pronombres.get(i));
-            }
-        }
+        System.out.print("Pronombres: " + String.join("/", pronombres));
     }
 }
