@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.stereotype.Service;
+
+
 /**
  * La clase Perfil representa la información personal
  * de un usuario en la aplicación. Incluye atributos como el nombre de usuario,
@@ -33,7 +36,7 @@ public class PerfilService {
      * @param pronombres Los pronombres preferidos del usuario (ej. "él",
      * "ella", "elle").
      */
-    public Perfil(String nombreUsuario, int edad, String genero, String ciudadResidencia, String biografia, List<String> pronombres) {
+    public PerfilService(String nombreUsuario, int edad, String genero, String ciudadResidencia, String biografia, List<String> pronombres) {
         this.nombreUsuario = nombreUsuario;
         this.edad = edad;
         this.genero = genero;
@@ -48,7 +51,7 @@ public class PerfilService {
      * perfil antes de registrar datos mediante el método
      * {@link #registrarPerfil()}.
      */
-    public Perfil() {
+    public PerfilService() {
         this.pronombres = new ArrayList<>();
 
     }
