@@ -10,8 +10,8 @@ import org.mindrot.jbcrypt.BCrypt;
 @Service
 public class UsuarioService {
 
-    private Perfil perfil;
-    private PreferenciasEmparejamiento preferencias;
+    private PerfilService perfil;
+    private PreferenciasEmparejamientoService preferencias;
     private EmparejamientoService emparejamiento;
     private static int contadorUsuarios = 1;
     private int idUsuario;
@@ -27,7 +27,7 @@ public class UsuarioService {
      */
     public UsuarioService() {
         this.idUsuario = contadorUsuarios++;
-        this.preferencias = new PreferenciasEmparejamiento();
+        this.preferencias = new PreferenciasEmparejamientoService();
         this.emparejamiento = new EmparejamientoService();
         this.likesRecibidos = new ArrayList<>();
         this.matchesRecibidos = new ArrayList<>();
@@ -81,7 +81,7 @@ public class UsuarioService {
         System.out.println("ID de usuario: " + this.idUsuario);
         System.out.println("Fecha de nacimiento: " + this.fechaNacimiento);
         System.out.println("Email: " + this.email);
-        this.perfil = new Perfil();
+        this.perfil = new PerfilService();
         perfil.registrarPerfil();
         perfil.mostrarPerfilPrivado();
     }
@@ -152,7 +152,7 @@ public class UsuarioService {
      *
      * @return el perfil del usuario
      */
-    public Perfil getPerfil() {
+    public PerfilService getPerfil() {
         return this.perfil;
     }
 
