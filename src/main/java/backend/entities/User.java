@@ -1,6 +1,8 @@
 package backend.entities;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Profile;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +41,5 @@ public class User {
     @CollectionTable(name = "user_matches", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "matched_user_id")
     private List<Long> matches = new ArrayList<>();
-    
+
 }
