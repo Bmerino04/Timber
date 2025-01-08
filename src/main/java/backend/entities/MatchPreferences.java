@@ -3,7 +3,6 @@ import jakarta.persistence.*;
 
 @Entity
 public class MatchPreferences {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
