@@ -1,0 +1,73 @@
+package backend.services;
+
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+@Service
+public class EmparejamientoService {
+
+    /** Colección de todos los usuarios compatibles para un posible match. */
+    private final Collection<UsuarioService> candidatos;
+
+    public EmparejamientoService() {
+        this.candidatos = new ArrayList<>();
+    }
+
+    /**
+     * Verifica si hay un match entre dos usuarios.
+     * Un match ocurre si ambos usuarios se han dado "like" mutuamente.
+     *
+     * @param usuario1 El primer usuario a comparar.
+     * @param usuario2 El segundo usuario a comparar.
+     * @return true si hay un match, false en caso contrario.
+     */
+    public boolean verificarMatch(UsuarioService usuario1, UsuarioService usuario2) {
+        return usuario1.getLikesRecibidos().contains(usuario2.getIdUsuario()) &&
+                usuario2.getLikesRecibidos().contains(usuario1.getIdUsuario());
+    }
+
+    /**
+     * Muestra los perfiles públicos de los candidatos.
+     */
+    public void mostrarCandidatos() {
+        for (UsuarioService candidato : candidatos) {
+            candidato.getPerfil().mostrarPerfilPublico();
+        }
+    }
+
+    /**
+     * Permite al usuario actual dar "like" a un candidato.
+     * Si se produce un match, se actualizan las listas de matches de ambos usuarios.
+     *
+     * @param usuarioActual El usuario que está dando el "like".
+     * @param candidato El usuario que recibe el "like".
+     */
+    public void darLike(UsuarioService usuarioActual, UsuarioService candidato) {
+        candidato.anniadirLike(usuarioActual.getIdUsuario());
+        if (verificarMatch(usuarioActual, candidato)) {
+            anniadirMatches(usuarioActual, candidato);
+        }
+    }
+
+    /**
+     * Actualiza las listas de matches de cada usuario.
+     *
+     * @param usuarioActual El usuario que está dando el "like".
+     * @param candidato El usuario que recibe el "like".
+     */
+    public void anniadirMatches(UsuarioService usuarioActual, UsuarioService candidato) {
+        candidato.anniadirMatch(usuarioActual.getIdUsuario());
+        usuarioActual.anniadirMatch(candidato.getIdUsuario());
+    }
+
+    /**
+     * Agrega un candidato a la colección de candidatos.
+     *
+     * @param compatible El usuario que se añadirá como candidato.
+     */
+    public void agregarCandidato(UsuarioService compatible) {
+        candidatos.add(compatible);
+    }
+}
