@@ -10,11 +10,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class SeederDatabase implements CommandLineRunner {
+public class UserSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
 
-    public SeederDatabase(UserRepository usuarioRepository) {
+    public UserSeeder(UserRepository usuarioRepository) {
         this.userRepository = usuarioRepository;
     }
 
