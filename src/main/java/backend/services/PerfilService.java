@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.stereotype.Service;
+
 /**
  * La clase Perfil representa la información personal
  * de un usuario en la aplicación. Incluye atributos como el nombre de usuario,
@@ -33,7 +35,7 @@ public class PerfilService {
      * @param pronombres Los pronombres preferidos del usuario (ej. "él",
      * "ella", "elle").
      */
-    public Perfil(String nombreUsuario, int edad, String genero, String ciudadResidencia, String biografia, List<String> pronombres) {
+    public PerfilService(String nombreUsuario, int edad, String genero, String ciudadResidencia, String biografia, List<String> pronombres) {
         this.nombreUsuario = nombreUsuario;
         this.edad = edad;
         this.genero = genero;
@@ -48,7 +50,7 @@ public class PerfilService {
      * perfil antes de registrar datos mediante el método
      * {@link #registrarPerfil()}.
      */
-    public Perfil() {
+    public PerfilService() {
         this.pronombres = new ArrayList<>();
 
     }
@@ -78,6 +80,31 @@ public class PerfilService {
         return pronombres;
     }
 
+    // Setters
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public void setCiudadResidencia(String ciudadResidencia) {
+        this.ciudadResidencia = ciudadResidencia;
+    }
+
+    public void setBiografia(String biografia) {
+        this.biografia = biografia;
+    }
+
+    public void setPronombres(List<String> pronombres) {
+        this.pronombres = pronombres != null ? new ArrayList<>(pronombres) : new ArrayList<>();
+    }
+
     /**
      * Permite registrar un perfil de usuario solicitando los datos mediante
      * consola. Utiliza un objeto Scanner para recibir los datos del perfil
@@ -85,15 +112,15 @@ public class PerfilService {
      * pronombres).
      */
     public void registrarPerfil() {
-        try( Scanner scanner = new Scanner(System.in)){
-        this.nombreUsuario = solicitarEntrada("Ingrese el nombre de usuario: ", scanner);
-        this.edad = solicitarEdad(scanner);
-        this.genero = solicitarEntrada("Ingrese el género: ", scanner);
-        this.ciudadResidencia = solicitarEntrada("Ingrese la ciudad de residencia: ", scanner);
-        this.biografia = solicitarEntrada("Ingrese la biografía: ", scanner);
-        this.pronombres = solicitarPronombres(scanner);
-        System.out.println("Perfil registrado con éxito.");
-    }
+        try (Scanner scanner = new Scanner(System.in)) {
+            this.nombreUsuario = solicitarEntrada("Ingrese el nombre de usuario: ", scanner);
+            this.edad = solicitarEdad(scanner);
+            this.genero = solicitarEntrada("Ingrese el género: ", scanner);
+            this.ciudadResidencia = solicitarEntrada("Ingrese la ciudad de residencia: ", scanner);
+            this.biografia = solicitarEntrada("Ingrese la biografía: ", scanner);
+            this.pronombres = solicitarPronombres(scanner);
+            System.out.println("Perfil registrado con éxito.");
+        }
     }
 
    /**
