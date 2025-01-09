@@ -6,6 +6,8 @@ import backend.services.ValidadorService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,14 +33,23 @@ public class Register extends JFrame {
 
         JLabel emailLabel = new JLabel("Correo electrónico:");
         emailField = new JTextField();
+        addPlaceholder(emailField, "Introduce tu correo electrónico");
+
         JLabel birthdateLabel = new JLabel("Fecha de nacimiento:");
         birthdateField = new JTextField();
+        addPlaceholder(birthdateField, "dd/mm/aaaa");
+
         JLabel usernameLabel = new JLabel("Nombre de usuario:");
         usernameField = new JTextField();
+        addPlaceholder(usernameField, "Introduce tu nombre de usuario");
+
         JLabel passwordLabel = new JLabel("Contraseña:");
         passwordField = new JPasswordField();
+        addPlaceholder(passwordField, "...");
+
         JLabel confirmPasswordLabel = new JLabel("Confirmar Contraseña:");
         confirmPasswordField = new JPasswordField();
+        addPlaceholder(confirmPasswordField, "...");
 
         JButton registerButton = new JButton("Registrar");
         registerButton.addActionListener(new RegistrationHandler());
@@ -57,6 +68,29 @@ public class Register extends JFrame {
 
         add(registerPanel);
         setVisible(true);
+    }
+
+    private void addPlaceholder(JTextField field, String placeholder) {
+        field.setText(placeholder);
+        field.setForeground(Color.GRAY);
+
+        field.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (field.getText().equals(placeholder)) {
+                    field.setText("");
+                    field.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (field.getText().isEmpty()) {
+                    field.setText(placeholder);
+                    field.setForeground(Color.GRAY);
+                }
+            }
+        });
     }
 
     private class RegistrationHandler implements ActionListener {
@@ -103,17 +137,20 @@ public class Register extends JFrame {
             PerfilService perfil = usuarioService.getPerfil();
             if (perfil != null) {
                 perfil.setNombreUsuario(username);
-                perfil.setCiudadResidencia("Tu Ciudad"); // Puedes obtener esto de otro campo de entrada
-                perfil.setGenero("Género"); // Puedes agregar más campos en el formulario para estos valores
+                perfil.setCiudadResidencia("Tu Ciudad");
+                perfil.setGenero("Género");
                 perfil.setBiografia("Bio");
             }
 
             JOptionPane.showMessageDialog(Register.this, "Registro exitoso.");
-            dispose(); // Cerrar la ventana de registro después de registrar
+            dispose();
 
-            // Opcional: abrir ventana de login o una nueva vista principal
-            new Login(); // Reabrir la ventana de login
+            // Abrir ventana de login o principal
+            new Login();
         }
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Register::new);
+    }
 }
