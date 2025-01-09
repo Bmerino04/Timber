@@ -6,10 +6,11 @@ import backend.services.ValidadorService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Register extends JFrame {
     private JTextField emailField;
@@ -17,6 +18,17 @@ public class Register extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JPasswordField confirmPasswordField;
+
+    private JComboBox<String> genderComboBox;
+    private JTextField otherGenderField;
+    private JTextField cityField;
+    private JTextField pronounsField;
+    private JTextArea bioField;
+
+    private JPanel firstPanel;
+    private JPanel secondPanel;
+    private JPanel thirdPanel;
+    private CardLayout cardLayout;
 
     public Register() {
         showRegisterPanel();
@@ -28,8 +40,13 @@ public class Register extends JFrame {
         setLocationRelativeTo(null); // Centrar ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel registerPanel = new JPanel(new GridLayout(6, 2, 10, 10));
-        registerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Espacio alrededor
+        // Usando un CardLayout para manejar los paneles
+        cardLayout = new CardLayout();
+        setLayout(cardLayout);
+
+        // Panel para la primera parte
+        firstPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        firstPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel emailLabel = new JLabel("Correo electrónico:");
         emailField = new JTextField();
@@ -51,22 +68,74 @@ public class Register extends JFrame {
         confirmPasswordField = new JPasswordField();
         addPlaceholder(confirmPasswordField, "...");
 
-        JButton registerButton = new JButton("Registrar");
-        registerButton.addActionListener(new RegistrationHandler());
+        JButton nextButton = new JButton("Siguiente");
+        nextButton.addActionListener(new NextButtonHandler());
 
-        registerPanel.add(usernameLabel);
-        registerPanel.add(usernameField);
-        registerPanel.add(emailLabel);
-        registerPanel.add(emailField);
-        registerPanel.add(birthdateLabel);
-        registerPanel.add(birthdateField);
-        registerPanel.add(passwordLabel);
-        registerPanel.add(passwordField);
-        registerPanel.add(confirmPasswordLabel);
-        registerPanel.add(confirmPasswordField);
-        registerPanel.add(registerButton);
+        firstPanel.add(usernameLabel);
+        firstPanel.add(usernameField);
+        firstPanel.add(emailLabel);
+        firstPanel.add(emailField);
+        firstPanel.add(birthdateLabel);
+        firstPanel.add(birthdateField);
+        firstPanel.add(passwordLabel);
+        firstPanel.add(passwordField);
+        firstPanel.add(confirmPasswordLabel);
+        firstPanel.add(confirmPasswordField);
+        firstPanel.add(nextButton);
 
-        add(registerPanel);
+        // Panel para la segunda parte
+        secondPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        secondPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel genderLabel = new JLabel("Género:");
+        genderComboBox = new JComboBox<>(new String[] {"Hombre", "Mujer", "Otro"});
+        genderComboBox.addActionListener(e -> otherGenderField.setEnabled(genderComboBox.getSelectedIndex() == 2));
+
+        JLabel otherGenderLabel = new JLabel("Otro (especificar):");
+        otherGenderField = new JTextField();
+        otherGenderField.setEnabled(false);
+
+        JLabel cityLabel = new JLabel("Ciudad:");
+        cityField = new JTextField();
+
+        JLabel pronounsLabel = new JLabel("Pronombres:");
+        pronounsField = new JTextField();
+
+        JButton nextButton2 = new JButton("Siguiente");
+        nextButton2.addActionListener(new NextButtonHandler2());
+
+        secondPanel.add(genderLabel);
+        secondPanel.add(genderComboBox);
+        secondPanel.add(otherGenderLabel);
+        secondPanel.add(otherGenderField);
+        secondPanel.add(cityLabel);
+        secondPanel.add(cityField);
+        secondPanel.add(pronounsLabel);
+        secondPanel.add(pronounsField);
+        secondPanel.add(nextButton2);
+
+        // Panel para la tercera parte (Biografía)
+        thirdPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+        thirdPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel bioLabel = new JLabel("Biografía (máximo 199 caracteres):");
+        bioField = new JTextArea();
+        bioField.setLineWrap(true);
+        bioField.setWrapStyleWord(true);
+
+        JButton submitButton = new JButton("Registrar");
+        submitButton.addActionListener(new RegistrationHandler());
+
+        thirdPanel.add(bioLabel);
+        thirdPanel.add(new JScrollPane(bioField));
+        thirdPanel.add(submitButton);
+
+        // Agregar paneles al CardLayout
+        add(firstPanel, "first");
+        add(secondPanel, "second");
+        add(thirdPanel, "third");
+
+        cardLayout.show(getContentPane(), "first");
         setVisible(true);
     }
 
@@ -74,9 +143,9 @@ public class Register extends JFrame {
         field.setText(placeholder);
         field.setForeground(Color.GRAY);
 
-        field.addFocusListener(new FocusListener() {
+        field.addFocusListener(new java.awt.event.FocusListener() {
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusGained(java.awt.event.FocusEvent e) {
                 if (field.getText().equals(placeholder)) {
                     field.setText("");
                     field.setForeground(Color.BLACK);
@@ -84,7 +153,7 @@ public class Register extends JFrame {
             }
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(java.awt.event.FocusEvent e) {
                 if (field.getText().isEmpty()) {
                     field.setText(placeholder);
                     field.setForeground(Color.GRAY);
@@ -93,7 +162,7 @@ public class Register extends JFrame {
         });
     }
 
-    private class RegistrationHandler implements ActionListener {
+    private class NextButtonHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String username = usernameField.getText();
@@ -126,10 +195,38 @@ public class Register extends JFrame {
                 return;
             }
 
+            // Cambiar al siguiente panel
+            cardLayout.show(getContentPane(), "second");
+        }
+    }
+
+    private class NextButtonHandler2 implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Cambiar al siguiente panel
+            cardLayout.show(getContentPane(), "third");
+        }
+    }
+
+    private class RegistrationHandler implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String username = usernameField.getText();
+            String email = emailField.getText();
+            String birthdate = birthdateField.getText();
+            String gender = (String) genderComboBox.getSelectedItem();
+            String otherGender = otherGenderField.getText();
+            String city = cityField.getText();
+            String pronouns = pronounsField.getText();
+            String bio = bioField.getText();
+
+            // Procesar pronombres a formato lista
+            List<String> pronounsList = Arrays.asList(pronouns.split("[/,-]"));
+
             // Usar UsuarioService para registrar al nuevo usuario
             UsuarioService usuarioService = new UsuarioService();
             usuarioService.setEmail(email);
-            usuarioService.setContrasennia(String.valueOf(password));
+            usuarioService.setContrasennia(new String(passwordField.getPassword()));
             usuarioService.setFechaNacimiento(birthdate);
             usuarioService.registrarUsuario(); // Crea el perfil automáticamente
 
@@ -137,9 +234,10 @@ public class Register extends JFrame {
             PerfilService perfil = usuarioService.getPerfil();
             if (perfil != null) {
                 perfil.setNombreUsuario(username);
-                perfil.setCiudadResidencia("Tu Ciudad");
-                perfil.setGenero("Género");
-                perfil.setBiografia("Bio");
+                perfil.setCiudadResidencia(city);
+                perfil.setGenero(gender.equals("Otro") ? otherGender : gender);
+                perfil.setPronombres(pronounsList);
+                perfil.setBiografia(bio);
             }
 
             JOptionPane.showMessageDialog(Register.this, "Registro exitoso.");

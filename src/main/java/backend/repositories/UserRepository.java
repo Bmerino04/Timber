@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
-    @Query("SELECT u FROM User u WHERE u.matchPreferences.rangoEdadMin >= :edadMinima AND u.matchPreferences.rangoEdadMax <= :edadMaxima")
+    @Query("SELECT u FROM User u WHERE u.matchPreferences.ageMin >= :edadMinima AND u.matchPreferences.ageMax <= :edadMaxima")
     List<User> findCandidatosPorPreferencias(
             @Param("edadMinima") int edadMinima,
             @Param("edadMaxima") int edadMaxima,

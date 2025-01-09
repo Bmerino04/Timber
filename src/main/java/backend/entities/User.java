@@ -1,11 +1,9 @@
 package backend.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 public class User {
@@ -40,5 +38,86 @@ public class User {
     @CollectionTable(name = "user_matches", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "matched_user_id")
     private List<Long> matches = new ArrayList<>();
+    // Constructor vacío obligatorio
+    public User() {}
 
+    // Constructor con parámetros
+    public User(String name, String email, String password, LocalDate birthDate) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.birthDate = birthDate;
+    }
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public MatchPreferences getMatchPreferences() {
+        return matchPreferences;
+    }
+
+    public void setMatchPreferences(MatchPreferences matchPreferences) {
+        this.matchPreferences = matchPreferences;
+    }
+
+    public List<Long> getLikesReceived() {
+        return likesReceived;
+    }
+
+    public void setLikesReceived(List<Long> likesReceived) {
+        this.likesReceived = likesReceived;
+    }
+
+    public List<Long> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Long> matches) {
+        this.matches = matches;
+    }
 }

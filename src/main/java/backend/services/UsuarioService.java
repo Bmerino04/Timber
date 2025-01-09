@@ -1,14 +1,21 @@
 package backend.services;
 
+import backend.entities.User;
+import backend.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Service
 public class UsuarioService {
+    @Autowired
+    private UserRepository userRepository;
 
     private PerfilService perfil;
     private PreferenciasEmparejamientoService preferencias;
@@ -40,44 +47,54 @@ public class UsuarioService {
      * @param contrasennia la contraseña ingresada por el usuario
      * @return true si las credenciales son válidas, false en caso contrario
      */
+
     public boolean validarInformacion(String email, String contrasennia) {
-        return this.email.equals(email) && BCrypt.checkpw(contrasennia, this.contrasennia);
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            return BCrypt.checkpw(contrasennia, user.getPassword());
+        }
+        return false;
     }
 
     /**
      * Inicia sesión solicitando el correo y la contraseña del usuario.
      * Si las credenciales son válidas, llama al método mostrarCandidatos().
      */
-    public void iniciarSesion() {
-        Scanner scanner = new Scanner(System.in);
-
-        // Solicitar el correo electrónico
-        System.out.print("Ingrese su correo electrónico: ");
-        String inputEmail = scanner.nextLine();
-
-        // Solicitar la contraseña
-        System.out.print("Ingrese su contraseña: ");
-        String inputContrasennia = scanner.nextLine();
-
-        // Validar la información
-        if (validarInformacion(inputEmail, inputContrasennia)) {
+    public void iniciarSesion(String email, String contrasennia) {
+        if (validarInformacion(email, contrasennia)) {
             System.out.println("Inicio de sesión exitoso.");
-            emparejamiento.mostrarCandidatos();
+            //siguiente paso
         } else {
             System.out.println("Correo electrónico o contraseña incorrectos.");
         }
     }
+
 
     /**
      * Registra un nuevo usuario solicitando sus datos personales.
      * Valida la fecha de nacimiento y el correo electrónico antes de almacenar la información.
      */
     public void registrarUsuario() {
-        System.out.println("Registro exitoso.");
-        System.out.println("ID de usuario: " + this.idUsuario);
-        System.out.println("Fecha de nacimiento: " + this.fechaNacimiento);
-        System.out.println("Email: " + this.email);
-        this.perfil = new PerfilService();
+        try {
+            User user = new User();
+            user.setEmail(this.email);
+            user.setPassword(encriptarContrasennia(this.contrasennia));
+
+            // Validar y formatear la fecha
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(fechaNacimiento, formatter);
+            user.setBirthDate(fecha);
+
+            // Guarda el usuario en la base de datos
+            userRepository.save(user);
+
+            this.idUsuario = user.getId().intValue(); // Obtener el ID asignado
+            System.out.println("Registro exitoso.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: El formato de la fecha es inválido. Use 'dd/MM/yyyy'.");
+        } catch (Exception e) {
+            System.out.println("Error al registrar el usuario: " + e.getMessage());
+        }
     }
 
     /**
@@ -159,6 +176,15 @@ public class UsuarioService {
 
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public List<User> obtenerUsuarios() {
+        return userRepository.findAll();
+    }
+
+    // Método para obtener un usuario por su ID
+    public User obtenerUsuarioPorId(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     private String encriptarContrasennia(String contrasennia) {
