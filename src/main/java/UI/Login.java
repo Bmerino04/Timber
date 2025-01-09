@@ -106,6 +106,17 @@ public class Login extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Login::new);
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("El entorno no admite gráficos.");
+            return;
+        }
+
+        // Código para inicializar la ventana
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Login");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(300, 200);
+            frame.setVisible(true);
+        });
     }
 }
