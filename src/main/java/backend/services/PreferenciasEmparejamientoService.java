@@ -1,5 +1,6 @@
 package backend.services;
 
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
      * Métodos como [buscarCompatibles] ayudan a encontrar candidatos que cumplan con los criterios definidos por el usuario.
      * @author Viviana Castro
      */
+    @Service
     public class PreferenciasEmparejamientoService {
 
 
@@ -37,13 +39,7 @@ import java.util.List;
 
         /**
          * Cambia las preferencias de emparejamiento del usuario actual.
-         *
          * Este método permite modificar el rango de edad, los géneros preferidos, y la ciudad de preferencia.
-         *
-         * @param edadMinima La nueva edad mínima preferida.
-         * @param edadMaxima La nueva edad máxima preferida.
-         * @param generoPreferido Los nuevos géneros preferidos.
-         * @param ciudadPreferida La nueva ciudad de preferencia.
          */
         public void cambiarPreferencias(){
             this.edadMinima = 0;
@@ -96,7 +92,7 @@ import java.util.List;
          * Busca usuarios compatibles basados en las preferencias del usuario actual.
          * Recorre una lista de usuarios (la futura base de datos) y, si cumplen con las preferencias de género, edad y ciudad, los agrega a una lista de candidatos.
          *
-         * @param usuarios La lista de usuarios a comparar.
+         * @param listaUsuarios La lista de usuarios a comparar.
          * @param emparejamiento El objeto que maneja el emparejamiento y los candidatos.
          */
         public void buscarCompatibles(List<UsuarioService> listaUsuarios, EmparejamientoService emparejamiento) {
@@ -108,4 +104,4 @@ import java.util.List;
         }
 
     }
-}
+
