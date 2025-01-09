@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Service
@@ -74,16 +75,26 @@ public class UsuarioService {
      * Valida la fecha de nacimiento y el correo electrónico antes de almacenar la información.
      */
     public void registrarUsuario() {
-        User user = new User();
-        user.setEmail(this.email);
-        user.setPassword(encriptarContrasennia(this.contrasennia));
-        user.setBirthDate(LocalDate.parse(this.fechaNacimiento));
+        try {
+            User user = new User();
+            user.setEmail(this.email);
+            user.setPassword(encriptarContrasennia(this.contrasennia));
 
-        // Guarda el usuario en la base de datos
-        userRepository.save(user);
+            // Validar y formatear la fecha
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(fechaNacimiento, formatter);
+            user.setBirthDate(fecha);
 
-        this.idUsuario = user.getId().intValue();  // Obtener el ID asignado por la base de datos
-        System.out.println("Registro exitoso.");
+            // Guarda el usuario en la base de datos
+            userRepository.save(user);
+
+            this.idUsuario = user.getId().intValue(); // Obtener el ID asignado
+            System.out.println("Registro exitoso.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: El formato de la fecha es inválido. Use 'dd/MM/yyyy'.");
+        } catch (Exception e) {
+            System.out.println("Error al registrar el usuario: " + e.getMessage());
+        }
     }
 
     /**
