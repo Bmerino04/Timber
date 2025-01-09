@@ -38,7 +38,16 @@ public class User {
     @CollectionTable(name = "user_matches", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "matched_user_id")
     private List<Long> matches = new ArrayList<>();
+    // Constructor vacío obligatorio
+    public User() {}
 
+    // Constructor con parámetros
+    public User(String name, String email, String password, LocalDate birthDate) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.birthDate = birthDate;
+    }
     // Getters y Setters
     public Long getId() {
         return id;
