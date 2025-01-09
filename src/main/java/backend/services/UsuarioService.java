@@ -158,7 +158,7 @@ public class UsuarioService {
     }
 
     public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = encriptarContrasennia(fechaNacimiento);
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     private String encriptarContrasennia(String contrasennia) {
