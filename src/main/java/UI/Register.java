@@ -96,6 +96,7 @@ public class Register extends JFrame {
             UsuarioService usuarioService = new UsuarioService();
             usuarioService.setEmail(email);
             usuarioService.setContrasennia(String.valueOf(password));
+            usuarioService.setFechaNacimiento(birthdate);
             usuarioService.registrarUsuario(); // Crea el perfil automáticamente
 
             // Configurar el perfil del usuario
