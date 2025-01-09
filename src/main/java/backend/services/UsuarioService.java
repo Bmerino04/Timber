@@ -73,17 +73,11 @@ public class UsuarioService {
      * Valida la fecha de nacimiento y el correo electrónico antes de almacenar la información.
      */
     public void registrarUsuario() {
-        this.fechaNacimiento = FormularioUsuarioService.solicitarFechaNacimiento();
-        this.email = FormularioUsuarioService.solicitarEmail();
-        setContrasennia(FormularioUsuarioService.solicitarContrasennia());
-
         System.out.println("Registro exitoso.");
         System.out.println("ID de usuario: " + this.idUsuario);
         System.out.println("Fecha de nacimiento: " + this.fechaNacimiento);
         System.out.println("Email: " + this.email);
         this.perfil = new PerfilService();
-        perfil.registrarPerfil();
-        perfil.mostrarPerfilPrivado();
     }
 
     /**
@@ -161,6 +155,10 @@ public class UsuarioService {
     }
     public void setContrasennia(String contrasennia) {
         this.contrasennia = encriptarContrasennia(contrasennia);
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = encriptarContrasennia(fechaNacimiento);
     }
 
     private String encriptarContrasennia(String contrasennia) {
