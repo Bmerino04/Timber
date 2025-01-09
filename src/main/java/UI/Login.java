@@ -85,15 +85,9 @@ public class Login extends JFrame {
                 return;
             }
 
+            // Crear el servicio y usar el método 'iniciarSesion'
             UsuarioService usuarioService = new UsuarioService();
-            if (usuarioService.validarInformacion(email, String.valueOf(password))) {
-                JOptionPane.showMessageDialog(Login.this, "Inicio de sesión exitoso.");
-                // Aquí se abriría la siguiente vista del sistema
-                dispose(); // Cierra la ventana de login
-                // Si quieres abrir una nueva ventana principal o dashboard, puedes hacerlo aquí
-            } else {
-                JOptionPane.showMessageDialog(Login.this, "Correo electrónico o contraseña incorrectos.");
-            }
+            usuarioService.iniciarSesion(email, String.valueOf(password));
 
             // Limpiar contraseña por seguridad
             java.util.Arrays.fill(password, ' ');
