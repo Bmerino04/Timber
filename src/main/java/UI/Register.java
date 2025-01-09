@@ -43,12 +43,12 @@ public class Register extends JFrame {
         JButton registerButton = new JButton("Registrar");
         registerButton.addActionListener(new RegistrationHandler());
 
+        registerPanel.add(usernameLabel);
+        registerPanel.add(usernameField);
         registerPanel.add(emailLabel);
         registerPanel.add(emailField);
         registerPanel.add(birthdateLabel);
         registerPanel.add(birthdateField);
-        registerPanel.add(usernameLabel);
-        registerPanel.add(usernameField);
         registerPanel.add(passwordLabel);
         registerPanel.add(passwordField);
         registerPanel.add(confirmPasswordLabel);
