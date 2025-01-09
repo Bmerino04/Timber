@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class Login extends JFrame {
     private JTextField emailField;
@@ -26,8 +28,11 @@ public class Login extends JFrame {
 
         JLabel emailLabel = new JLabel("Correo electrónico:");
         emailField = new JTextField();
+        addPlaceholder(emailField, "Introduce tu correo electrónico");
+
         JLabel passwordLabel = new JLabel("Contraseña:");
         passwordField = new JPasswordField();
+        addPlaceholder(passwordField, "...");
 
         JButton loginButton = new JButton("Iniciar Sesión");
         loginButton.addActionListener(new LoginHandler());
@@ -44,6 +49,29 @@ public class Login extends JFrame {
 
         add(loginPanel);
         setVisible(true);
+    }
+
+    private void addPlaceholder(JTextField field, String placeholder) {
+        field.setText(placeholder);
+        field.setForeground(Color.GRAY);
+
+        field.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (field.getText().equals(placeholder)) {
+                    field.setText("");
+                    field.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (field.getText().isEmpty()) {
+                    field.setText(placeholder);
+                    field.setForeground(Color.GRAY);
+                }
+            }
+        });
     }
 
     private class LoginHandler implements ActionListener {
@@ -81,5 +109,9 @@ public class Login extends JFrame {
             // Abre la ventana de registro
             new Register(); // Llamamos al constructor de Register
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Login::new);
     }
 }
