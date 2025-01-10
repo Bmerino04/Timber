@@ -4,104 +4,111 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Servicio que gestiona las preferencias de emparejamiento de un usuario.
+ * Permite establecer y evaluar criterios de compatibilidad con otros usuarios
+ * basados en rango de edad, ciudad y género preferido.
+ *
+ * Este servicio incluye métodos para:
+ * - Cambiar las preferencias del usuario.
+ * - Evaluar compatibilidad de edad, ciudad y género con otros usuarios.
+ * - Buscar candidatos compatibles dentro de una lista de usuarios.
+ *
+ * @author Viviana Castro
+ */
+@Service
+public class PreferenciasEmparejamientoService {
+
     /**
-     * Esta clase maneja las preferencias de emparejamiento de un usuario.
-     * Filtra candidatos basados en el rango de edad, ciudad de preferencia, y género preferido del usuario.
-     *
-     * Métodos como [buscarCompatibles] ayudan a encontrar candidatos que cumplan con los criterios definidos por el usuario.
-     * @author Viviana Castro
+     * Edad mínima preferida para el emparejamiento.
      */
-    @Service
-    public class PreferenciasEmparejamientoService {
+    private int edadMinima;
 
+    /**
+     * Edad máxima preferida para el emparejamiento.
+     */
+    private int edadMaxima;
 
-        /**
-         * La edad mínima preferida para el emparejamiento.
-         */
-        private int edadMinima;
-        /**
-         * La edad máxima preferida para el emparejamiento.
-         */
-        private int edadMaxima;
-        /**
-         * Los géneros preferidos para el emparejamiento.
-         */
-        private List<String> generoPreferido;
-        /**
-         * La ciudad preferida para el emparejamiento.
-         */
-        private String ciudadPreferida;
+    /**
+     * Lista de géneros preferidos para el emparejamiento.
+     */
+    private List<String> generoPreferido;
 
+    /**
+     * Ciudad preferida para el emparejamiento.
+     */
+    private String ciudadPreferida;
 
-        public PreferenciasEmparejamientoService(){
-            this.generoPreferido = new ArrayList<>();
-        }
+    /**
+     * Constructor que inicializa la lista de géneros preferidos.
+     */
+    public PreferenciasEmparejamientoService() {
+        this.generoPreferido = new ArrayList<>();
+    }
 
-        /**
-         * Cambia las preferencias de emparejamiento del usuario actual.
-         * Este método permite modificar el rango de edad, los géneros preferidos, y la ciudad de preferencia.
-         */
-        public void cambiarPreferencias(){
-            this.edadMinima = 0;
-            this.edadMaxima = 0;
-            this.generoPreferido = null;
-            this.ciudadPreferida = null;
-        }
+    /**
+     * Resetea las preferencias de emparejamiento del usuario actual.
+     * Establece los valores predeterminados para rango de edad, géneros preferidos y ciudad de preferencia.
+     */
+    public void cambiarPreferencias() {
+        this.edadMinima = 0;
+        this.edadMaxima = 0;
+        this.generoPreferido = null;
+        this.ciudadPreferida = null;
+    }
 
-        /**
-         * Verifica si la ciudad de un usuario es compatible con las preferencias del usuario actual.
-         *
-         * @param usuario El usuario con el que se está comparando.
-         * @return true si la ciudad del usuario coincide con la ciudad de preferencia,
-         *         false en caso contrario.
-         */
-        public boolean ciudadCompatible(UsuarioService usuario){
-            return ciudadPreferida.equals(usuario.getPerfil().getCiudadResidencia()) ;
-        }
+    /**
+     * Evalúa si la ciudad de residencia de un usuario es compatible con la ciudad de preferencia.
+     *
+     * @param usuario El usuario cuya ciudad se está evaluando.
+     * @return {@code true} si la ciudad coincide con la preferencia, {@code false} en caso contrario.
+     */
+    public boolean ciudadCompatible(UsuarioService usuario) {
+        return ciudadPreferida != null && ciudadPreferida.equals(usuario.getPerfil().getCiudadResidencia());
+    }
 
-        /**
-         * Verifica si la edad de un usuario está dentro del rango de edad preferido del usuario actual.
-         *
-         * @param usuario El usuario con el que se está comparando.
-         * @return true si la edad del usuario está dentro del rango preferido,
-         *         false en caso contrario.
-         */
-        public boolean edadCompatible(UsuarioService usuario){
-            int edadUsuario = usuario.getPerfil().getEdad();
-            return (edadUsuario >= edadMinima && edadUsuario >= edadMaxima);
-        }
+    /**
+     * Verifica si la edad de un usuario está dentro del rango de edad preferido.
+     *
+     * @param usuario El usuario cuya edad se está evaluando.
+     * @return {@code true} si la edad está dentro del rango, {@code false} en caso contrario.
+     */
+    public boolean edadCompatible(UsuarioService usuario) {
+        int edadUsuario = usuario.getPerfil().getEdad();
+        return (edadUsuario >= edadMinima && edadUsuario <= edadMaxima);
+    }
 
-        /**
-         * Verifica si el género de un usuario es compatible con las preferencias del usuario actual.
-         *
-         * @param usuario El usuario con el que se está comparando.
-         * @return true si el género del usuario está en la lista de géneros preferidos,
-         *         false en caso contrario.
-         */
-        public boolean generoCompatible(UsuarioService usuario){
-            String generoUsuario = usuario.getPerfil().getGenero();
-            for (String genero : generoPreferido){
-                if (genero.equals(generoUsuario)){
-                    return true;
-                }
-            }
+    /**
+     * Evalúa si el género de un usuario es compatible con los géneros preferidos.
+     *
+     * @param usuario El usuario cuyo género se está evaluando.
+     * @return {@code true} si el género está en la lista de géneros preferidos, {@code false} en caso contrario.
+     */
+    public boolean generoCompatible(UsuarioService usuario) {
+        if (generoPreferido == null || generoPreferido.isEmpty()) {
             return false;
         }
+        String generoUsuario = usuario.getPerfil().getGenero();
+        return generoPreferido.contains(generoUsuario);
+    }
 
-        /**
-         * Busca usuarios compatibles basados en las preferencias del usuario actual.
-         * Recorre una lista de usuarios (la futura base de datos) y, si cumplen con las preferencias de género, edad y ciudad, los agrega a una lista de candidatos.
-         *
-         * @param listaUsuarios La lista de usuarios a comparar.
-         * @param emparejamiento El objeto que maneja el emparejamiento y los candidatos.
-         */
-        public void buscarCompatibles(List<UsuarioService> listaUsuarios, EmparejamientoService emparejamiento) {
-            for (UsuarioService usuario : listaUsuarios){
-                if (ciudadCompatible(usuario) && edadCompatible(usuario) && generoCompatible(usuario)){
-                    emparejamiento.agregarCandidato(usuario);
-                }
+    /**
+     * Busca usuarios compatibles en base a las preferencias del usuario actual.
+     *
+     * Recorre una lista de usuarios y agrega aquellos que cumplen con los criterios de
+     * compatibilidad (edad, ciudad y género) a un objeto de emparejamiento.
+     *
+     * @param listaUsuarios Lista de usuarios a evaluar.
+     * @param emparejamiento Objeto encargado de manejar los candidatos compatibles.
+     */
+    public void buscarCompatibles(List<UsuarioService> listaUsuarios, EmparejamientoService emparejamiento) {
+        for (UsuarioService usuario : listaUsuarios) {
+            if (ciudadCompatible(usuario) && edadCompatible(usuario) && generoCompatible(usuario)) {
+                emparejamiento.agregarCandidato(usuario);
             }
         }
-
     }
+}
+
 
