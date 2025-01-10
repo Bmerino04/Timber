@@ -1,8 +1,13 @@
 package backend.services;
 
+import backend.entities.User;
+import backend.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,6 +29,8 @@ public class PreferenciasEmparejamientoService {
      * Edad mínima preferida para el emparejamiento.
      */
     private int edadMinima;
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Edad máxima preferida para el emparejamiento.
@@ -33,7 +40,7 @@ public class PreferenciasEmparejamientoService {
     /**
      * Lista de géneros preferidos para el emparejamiento.
      */
-    private List<String> generoPreferido;
+    private String generoPreferido;
 
     /**
      * Ciudad preferida para el emparejamiento.
@@ -44,7 +51,7 @@ public class PreferenciasEmparejamientoService {
      * Constructor que inicializa la lista de géneros preferidos.
      */
     public PreferenciasEmparejamientoService() {
-        this.generoPreferido = new ArrayList<>();
+        this.generoPreferido = "";
     }
 
     /**
@@ -54,8 +61,8 @@ public class PreferenciasEmparejamientoService {
     public void cambiarPreferencias() {
         this.edadMinima = 0;
         this.edadMaxima = 0;
-        this.generoPreferido = null;
-        this.ciudadPreferida = null;
+        this.generoPreferido = "";
+        this.ciudadPreferida = "";
     }
 
     /**
@@ -108,7 +115,7 @@ public class PreferenciasEmparejamientoService {
                 emparejamiento.agregarCandidato(usuario);
             }
         }
+        userRepository.findCandidatosPorPreferencias(this.edadMinima, this.edadMaxima, this.generoPreferido, this.ciudadPreferida);
     }
 }
-
 
