@@ -16,7 +16,6 @@ import org.mindrot.jbcrypt.BCrypt;
 public class UsuarioService {
     @Autowired
     private UserRepository userRepository;
-
     private PerfilService perfil;
     private PreferenciasEmparejamientoService preferencias;
     private EmparejamientoService emparejamiento;
@@ -74,16 +73,12 @@ public class UsuarioService {
      * Registra un nuevo usuario solicitando sus datos personales.
      * Valida la fecha de nacimiento y el correo electrónico antes de almacenar la información.
      */
-    public void registrarUsuario() {
+    public void registrarUsuario(String username) {
         try {
-            User user = new User();
-            user.setEmail(this.email);
-            user.setPassword(encriptarContrasennia(this.contrasennia));
-
             // Validar y formatear la fecha
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate fecha = LocalDate.parse(fechaNacimiento, formatter);
-            user.setBirthDate(fecha);
+            LocalDate fecha = LocalDate.parse(this.fechaNacimiento, formatter);
+            User user = new User(username,this.email,encriptarContrasennia(this.contrasennia),fecha);
 
             // Guarda el usuario en la base de datos
             userRepository.save(user);

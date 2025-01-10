@@ -1,17 +1,18 @@
-package UI;
+package backend.UI;
 
 import backend.services.PerfilService;
 import backend.services.UsuarioService;
 import backend.services.ValidadorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@Component
 public class Register extends JFrame {
     private JTextField emailField;
     private JTextField birthdateField;
@@ -29,7 +30,7 @@ public class Register extends JFrame {
     private JPanel secondPanel;
     private JPanel thirdPanel;
     private CardLayout cardLayout;
-
+    @Autowired
     public Register() {
         showRegisterPanel();
     }
@@ -209,6 +210,8 @@ public class Register extends JFrame {
     }
 
     private class RegistrationHandler implements ActionListener {
+        @Autowired
+        private UsuarioService usuarioService;
         @Override
         public void actionPerformed(ActionEvent e) {
             String username = usernameField.getText();
@@ -224,11 +227,11 @@ public class Register extends JFrame {
             List<String> pronounsList = Arrays.asList(pronouns.split("[/,-]"));
 
             // Usar UsuarioService para registrar al nuevo usuario
-            UsuarioService usuarioService = new UsuarioService();
+            usuarioService=new UsuarioService();
             usuarioService.setEmail(email);
             usuarioService.setContrasennia(new String(passwordField.getPassword()));
             usuarioService.setFechaNacimiento(birthdate);
-            usuarioService.registrarUsuario(); // Crea el perfil automáticamente
+            usuarioService.registrarUsuario(username); // Crea el perfil automáticamente
 
             // Configurar el perfil del usuario
             PerfilService perfil = usuarioService.getPerfil();
