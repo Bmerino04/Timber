@@ -9,20 +9,36 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Clase encargada de sembrar la base de datos con usuarios de ejemplo al arrancar la aplicación.
+ * Implementa la interfaz {@link CommandLineRunner} para ejecutar código al inicio de la aplicación.
+ */
 @Component
 public class UserSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
 
-    public UserSeeder(UserRepository usuarioRepository) {
-        this.userRepository = usuarioRepository;
+    /**
+     * Constructor de la clase {@link UserSeeder}.
+     *
+     * @param userRepository El repositorio de usuarios que se utilizará para guardar los datos.
+     */
+    public UserSeeder(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
+    /**
+     * Método que se ejecuta al iniciar la aplicación para insertar usuarios en la base de datos
+     * si la tabla de usuarios está vacía.
+     *
+     * @param args Argumentos de la línea de comandos (no utilizados en este caso).
+     * @throws Exception Si ocurre algún error durante la ejecución.
+     */
     @Override
     public void run(String... args) throws Exception {
         // Verificar si ya hay datos en la tabla
         if (userRepository.count() == 0) {
-            // Crear usuarios
+            // Crear usuarios de ejemplo
             List<User> users = Arrays.asList(
                     new User("Juan Pérez", "juan.perez@example.com", "password123", LocalDate.of(1995, 5, 15)),
                     new User("María López", "maria.lopez@example.com", "password123", LocalDate.of(1990, 8, 10)),
@@ -45,3 +61,4 @@ public class UserSeeder implements CommandLineRunner {
         }
     }
 }
+
