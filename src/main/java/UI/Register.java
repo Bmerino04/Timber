@@ -1,3 +1,7 @@
+/**
+ * Clase Register que gestiona el registro de nuevos usuarios a través de una interfaz gráfica Swing.
+ * Proporciona validaciones para los campos de entrada y permite la configuración del perfil del usuario registrado.
+ */
 package UI;
 
 import backend.services.PerfilService;
@@ -30,21 +34,43 @@ public class Register extends JFrame {
     private JPanel thirdPanel;
     private CardLayout cardLayout;
 
+    /**
+     * Constructor que inicializa y muestra la ventana de registro.
+     */
     public Register() {
         showRegisterPanel();
     }
 
+    /**
+     * Configura y muestra el panel principal de registro utilizando un CardLayout.
+     */
     private void showRegisterPanel() {
         setTitle("Registro de Usuario");
         setSize(400, 300);
         setLocationRelativeTo(null); // Centrar ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Usando un CardLayout para manejar los paneles
         cardLayout = new CardLayout();
         setLayout(cardLayout);
 
-        // Panel para la primera parte
+        // Configuración de los tres paneles
+        setupFirstPanel();
+        setupSecondPanel();
+        setupThirdPanel();
+
+        // Agregar paneles al CardLayout
+        add(firstPanel, "first");
+        add(secondPanel, "second");
+        add(thirdPanel, "third");
+
+        cardLayout.show(getContentPane(), "first");
+        setVisible(true);
+    }
+
+    /**
+     * Configura el primer panel de registro que incluye datos básicos como email, fecha de nacimiento, etc.
+     */
+    private void setupFirstPanel() {
         firstPanel = new JPanel(new GridLayout(6, 2, 10, 10));
         firstPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -82,8 +108,12 @@ public class Register extends JFrame {
         firstPanel.add(confirmPasswordLabel);
         firstPanel.add(confirmPasswordField);
         firstPanel.add(nextButton);
+    }
 
-        // Panel para la segunda parte
+    /**
+     * Configura el segundo panel de registro que incluye datos adicionales como género, ciudad, y pronombres.
+     */
+    private void setupSecondPanel() {
         secondPanel = new JPanel(new GridLayout(6, 2, 10, 10));
         secondPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -113,8 +143,12 @@ public class Register extends JFrame {
         secondPanel.add(pronounsLabel);
         secondPanel.add(pronounsField);
         secondPanel.add(nextButton2);
+    }
 
-        // Panel para la tercera parte (Biografía)
+    /**
+     * Configura el tercer panel de registro que incluye la biografía del usuario.
+     */
+    private void setupThirdPanel() {
         thirdPanel = new JPanel(new GridLayout(2, 1, 10, 10));
         thirdPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -129,16 +163,13 @@ public class Register extends JFrame {
         thirdPanel.add(bioLabel);
         thirdPanel.add(new JScrollPane(bioField));
         thirdPanel.add(submitButton);
-
-        // Agregar paneles al CardLayout
-        add(firstPanel, "first");
-        add(secondPanel, "second");
-        add(thirdPanel, "third");
-
-        cardLayout.show(getContentPane(), "first");
-        setVisible(true);
     }
 
+    /**
+     * Agrega un placeholder a un campo de texto que desaparece cuando se obtiene el foco.
+     * @param field Campo de texto al que se le asignará el placeholder.
+     * @param placeholder Texto del placeholder.
+     */
     private void addPlaceholder(JTextField field, String placeholder) {
         field.setText(placeholder);
         field.setForeground(Color.GRAY);
@@ -162,6 +193,9 @@ public class Register extends JFrame {
         });
     }
 
+    /**
+     * Handler para pasar del primer al segundo panel después de realizar las validaciones necesarias.
+     */
     private class NextButtonHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -200,6 +234,9 @@ public class Register extends JFrame {
         }
     }
 
+    /**
+     * Clase interna para manejar la acción del botón "Siguiente" en el segundo panel.
+     */
     private class NextButtonHandler2 implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -208,6 +245,9 @@ public class Register extends JFrame {
         }
     }
 
+    /**
+     * Clase interna para manejar el registro final del usuario.
+     */
     private class RegistrationHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -248,6 +288,11 @@ public class Register extends JFrame {
         }
     }
 
+    /**
+     * Punto de entrada principal para ejecutar la ventana de registro.
+     *
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Register::new);
     }

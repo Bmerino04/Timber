@@ -9,14 +9,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+/**
+ * Clase que representa la ventana de inicio de sesión de la aplicación.
+ * Permite a los usuarios iniciar sesión o registrarse.
+ */
 public class Login extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
 
+    /**
+     * Constructor de la clase Login.
+     * Inicializa y muestra el panel de inicio de sesión.
+     */
     public Login() {
         showLoginPanel();
     }
 
+    /**
+     * Configura y muestra el panel de inicio de sesión.
+     * Contiene campos para el correo electrónico, contraseña y botones para iniciar sesión o registrarse.
+     */
     private void showLoginPanel() {
         setTitle("Inicio de Sesión");
         setSize(400, 200);
@@ -51,6 +63,13 @@ public class Login extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Añade un marcador de posición a un campo de texto.
+     * Cambia el texto y el color cuando el campo gana o pierde el foco.
+     *
+     * @param field       El campo de texto al que se añadirá el marcador de posición.
+     * @param placeholder El texto del marcador de posición.
+     */
     private void addPlaceholder(JTextField field, String placeholder) {
         field.setText(placeholder);
         field.setForeground(Color.GRAY);
@@ -74,7 +93,15 @@ public class Login extends JFrame {
         });
     }
 
+    /**
+     * Clase interna que maneja el evento de iniciar sesión.
+     */
     private class LoginHandler implements ActionListener {
+        /**
+         * Realiza las acciones necesarias para el inicio de sesión cuando se pulsa el botón.
+         *
+         * @param e El evento de acción asociado al botón.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             String email = emailField.getText();
@@ -94,7 +121,15 @@ public class Login extends JFrame {
         }
     }
 
+    /**
+     * Clase interna que maneja el evento de registrar un nuevo usuario.
+     */
     private class RegistrationHandler implements ActionListener {
+        /**
+         * Realiza las acciones necesarias para abrir la ventana de registro cuando se pulsa el botón.
+         *
+         * @param e El evento de acción asociado al botón.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             // Cierra la ventana de login
@@ -105,6 +140,11 @@ public class Login extends JFrame {
         }
     }
 
+    /**
+     * Método principal que inicializa la aplicación y muestra la ventana de inicio de sesión.
+     *
+     * @param args Argumentos de línea de comandos.
+     */
     public static void main(String[] args) {
         if (GraphicsEnvironment.isHeadless()) {
             System.out.println("El entorno no admite gráficos.");
@@ -113,10 +153,7 @@ public class Login extends JFrame {
 
         // Código para inicializar la ventana
         javax.swing.SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Login");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(300, 200);
-            frame.setVisible(true);
+            JFrame frame = new Login();
         });
     }
 }
