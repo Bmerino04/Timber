@@ -179,4 +179,24 @@ public class PerfilService {
     public void setPronombres(List<String> pronombres) {
         this.pronombres = pronombres != null ? new ArrayList<>(pronombres) : new ArrayList<>();
     }
+
+        /**
+     * Muestra la información pública del perfil del usuario. Esto incluye el
+     * nombre de usuario, edad, género y ciudad de residencia.
+     */
+    public void mostrarPerfilPublico() {
+        System.out.println("Nombre de usuario: " + nombreUsuario);
+        System.out.println("Edad: " + edad);
+        System.out.println("Género: " + genero);
+        System.out.println("Ciudad de residencia: " + ciudadResidencia);
+    }
+    /**
+     * Muestra la información privada del perfil del usuario. Incluye toda la
+     * información del perfil público, además de la biografía y los pronombres.
+     */
+    public void mostrarPerfilPrivado() {
+        mostrarPerfilPublico();
+        System.out.println("Biografía: " + biografia);
+        System.out.print("Pronombres: " + String.join("/", pronombres));
+    }
 }
