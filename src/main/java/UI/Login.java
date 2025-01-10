@@ -1,11 +1,6 @@
-package backend.UI;
+package UI;
 
-import backend.TimberApplication;
 import backend.services.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-@Component
 
 public class Login extends JFrame {
-    @Autowired
-    private UsuarioService usuarioService;
     private JTextField emailField;
     private JPasswordField passwordField;
 
@@ -94,6 +86,7 @@ public class Login extends JFrame {
             }
 
             // Crear el servicio y usar el método 'iniciarSesion'
+            UsuarioService usuarioService = new UsuarioService();
             usuarioService.iniciarSesion(email, String.valueOf(password));
 
             // Limpiar contraseña por seguridad
@@ -104,12 +97,11 @@ public class Login extends JFrame {
     private class RegistrationHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            // Cierra la ventana de login
             dispose();
-            // Reutiliza el contexto de Spring
-            SwingUtilities.invokeLater(() -> {
-                Register register = TimberApplication.getContext().getBean(Register.class);
-                register.setVisible(true);
-            }); // Llamamos al constructor de Register
+
+            // Abre la ventana de registro
+            new Register(); // Llamamos al constructor de Register
         }
     }
 
